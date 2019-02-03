@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "yura",
+    "skill": 14,
+    "physics": 10
+  },
+  {
+    "slug": "dimonr",
+    "skill": 11,
+    "physics": 9
+  },
+  {
+    "slug": "igor",
+    "skill": 16,
+    "physics": 9
+  },
+  {
+    "slug": "kolya",
+    "skill": 15,
+    "physics": 8
+  },
+  {
+    "slug": "reus",
+    "skill": 9,
+    "physics": 6
+  },
+  {
+    "slug": "nikita",
+    "skill": 9,
+    "physics": 8
+  },
+  {
+    "slug": "roma",
+    "skill": 11,
+    "physics": 7
+  },
+  {
+    "slug": "vanya",
+    "skill": 6,
+    "physics": 8
+  },
+  {
+    "slug": "rost",
+    "skill": 8,
+    "physics": 4
+  },
+  {
+    "slug": "valik",
+    "skill": 18,
+    "physics": 9
+  }
+
+
+]

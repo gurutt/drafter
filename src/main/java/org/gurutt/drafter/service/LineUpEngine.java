@@ -12,18 +12,17 @@ import java.util.function.Function;
 @Component
 public class LineUpEngine {
 
+    public List<LineUp> decide(List<Player> players) {
 
-    public Object build(List<String> participants) {
-        return null;
+        return List.of(buildLineUp(players, Player::getSkill), buildLineUp(players, Player::getPhysics));
     }
 
-    public LineUp pick(List<Player> players) {
+    private LineUp buildLineUp(List<Player> players, Function<Player, Integer> attr) {
         LineUp lineUp = new LineUp();
 
-        // temporary
-        Function<Player, Integer> getSkill = Player::getSkill;
-        players = players.sortBy(getSkill).reverse();
+        players = players.sortBy(attr).reverse();
 
+        Player worth = players.get(players.size() - 1);
 
         List<Player> west = players.zipWithIndex()
                 .filter(t -> t._2 % 2 == 0)
@@ -33,12 +32,9 @@ public class LineUpEngine {
                 .filter(t -> t._2 % 2 == 0)
                 .map(t -> t._1);
 
-
-        Player worth = players.get(players.size() - 1);
-
-        Tuple2<Integer, Integer> skills = totalValue(west, east, getSkill);
+        Tuple2<Integer, Integer> total = totalValue(west, east, attr);
         int i = 0;
-        while (Math.abs(skills._1 - skills._2) > worth.getSkill()) {
+        while (Math.abs(total._1 - total._2) > worth.getSkill()) {
             int idx = west.size() - 1;
             if (i == idx + 1) {
                 break;
@@ -48,14 +44,13 @@ public class LineUpEngine {
             Player p2 = east.get(index);
             west = west.replace(p1, p2);
             east = east.replace(p2, p1);
-            Tuple2<Integer, Integer> newSkills = totalValue(west, east, getSkill);
-            if (Math.abs(skills._1 - skills._2) < Math.abs(newSkills._1 - newSkills._2)) {
+            Tuple2<Integer, Integer> newAttr = totalValue(west, east, attr);
+            if (Math.abs(total._1 - total._2) < Math.abs(newAttr._1 - newAttr._2)) {
                 break;
             }
-            skills = newSkills;
+            total = newAttr;
             i++;
         }
-
 
         lineUp.setWest(new Team(west));
         lineUp.setEast(new Team(east));

@@ -13,7 +13,7 @@ public class LineUpEngineTest {
 
         List<Player> of = getPlayers();
 
-        LineUp pick = lineUpEngine.pick(of);
+        LineUp pick = lineUpEngine.decide(of).get(0);
         System.out.println(pick);
     }
 
@@ -22,7 +22,7 @@ public class LineUpEngineTest {
 
         List<Player> of = getPlayers();
 
-        LineUp pick = lineUpEngine.pick(of);
+        LineUp pick = lineUpEngine.decide(of).get(0);
         System.out.println(pick);
     }
 
@@ -41,7 +41,7 @@ public class LineUpEngineTest {
         Player p10 = new Player("valik", 18, 9);
         List<Player> of = List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 
-        LineUp pick = lineUpEngine.pick(of);
+        LineUp pick = lineUpEngine.decide(of).get(0);
         System.out.println(pick.getWest());
         System.out.println(pick.getEast());
     }
