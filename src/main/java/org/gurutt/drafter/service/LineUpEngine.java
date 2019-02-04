@@ -46,6 +46,8 @@ public class LineUpEngine {
             east = east.replace(p2, p1);
             Tuple2<Integer, Integer> newAttr = totalValue(west, east, attr);
             if (Math.abs(total._1 - total._2) < Math.abs(newAttr._1 - newAttr._2)) {
+                west = west.replace(p2, p1);
+                east = east.replace(p1, p2);
                 break;
             }
             total = newAttr;

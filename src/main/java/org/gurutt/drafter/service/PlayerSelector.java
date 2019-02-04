@@ -29,7 +29,7 @@ public class PlayerSelector {
         return lineUpEngine.decide(io.vavr.collection.List.ofAll(players));
     }
 
-    //TODO replace list witt
+    //TODO replace list with vavr
     private List<Player> findPlayers(List<String> participants) {
         Query query = new Query();
         java.util.List<Criteria> criteria = new ArrayList<>();
