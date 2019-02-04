@@ -27,8 +27,7 @@ public class PlayerSelector {
     public io.vavr.collection.List<LineUp> select(List<String> participants) {
 
         List<Player> players = findPlayers(participants);
-        io.vavr.collection.List<LineUp> decide = lineUpEngine.decide(io.vavr.collection.List.ofAll(players));
-        return decide;
+        return lineUpEngine.decide(io.vavr.collection.List.ofAll(players));
     }
 
     //TODO replace list with vavr
@@ -38,7 +37,7 @@ public class PlayerSelector {
         for (String participant : participants) {
             criteria.add(Criteria.where("slug").is(participant.toLowerCase()));
         }
-        query.addCriteria(new Criteria().orOperator(criteria.toArray(new Criteria[criteria.size()])));
+        query.addCriteria(new Criteria().orOperator(criteria.toArray(new Criteria[0])));
         return mongoTemplate.find(query, Player.class);
     }
 }

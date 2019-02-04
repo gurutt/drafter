@@ -5,9 +5,9 @@ import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
 import org.gurutt.drafter.domain.Team;
 
-public class BotResponse {
+class BotResponse {
 
-    public static String lineUp(List<LineUp> lines) {
+    static String lineUp(List<LineUp> lines) {
         LineUp skill = lines.get(0);
         StringBuilder builder = new StringBuilder();
         builder.append("*Skill version*\n");
@@ -21,7 +21,7 @@ public class BotResponse {
         return builder.toString();
     }
 
-    public static String teams(Team west, Team east, String type) {
+    private static String teams(Team west, Team east, String type) {
 
         StringBuilder builder = new StringBuilder();
         builder.append(roster(west));

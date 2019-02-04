@@ -19,7 +19,7 @@ import java.util.Arrays;
 @Slf4j
 public class DraftifyBot extends TelegramLongPollingBot {
 
-    protected static final String CMD = "/draft";
+    private static final String CMD = "/draft";
     @Value("${telegram.bot.token}")
     private String token;
 
@@ -36,7 +36,7 @@ public class DraftifyBot extends TelegramLongPollingBot {
             Message message = update.getMessage();
             long chat_id = update.getMessage().getChatId();
 
-            List<LineUp> select = List.of();
+            List<LineUp> select;
             try {
                 java.util.List<String> participants = Arrays.asList(message.getText()
                         .replaceAll(CMD,"")
