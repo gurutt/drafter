@@ -1,20 +1,24 @@
 package org.gurutt.drafter.telegrambot;
 
 import io.vavr.collection.List;
+import io.vavr.collection.Map;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
 import org.gurutt.drafter.domain.Team;
 
+import static org.gurutt.drafter.service.LineUpEngine.SKILL;
+import static org.gurutt.drafter.service.LineUpEngine.STAMINA;
+
 class BotResponse {
 
-    static String lineUp(List<LineUp> lines) {
-        LineUp skill = lines.get(0);
+    static String lineUp(Map<String, LineUp> lines) {
+        LineUp skill = lines.get(SKILL).get();
         StringBuilder builder = new StringBuilder();
         builder.append("*Skill version*\n");
         builder.append(teams(skill.getWest(), skill.getEast(), "skill"));
         builder.append("\n\n");
 
-        LineUp stamina = lines.get(1);
+        LineUp stamina = lines.get(STAMINA).get();
         builder.append("*Stamina version*\n");
         builder.append(teams(stamina.getWest(), stamina.getEast(), "stamina"));
 

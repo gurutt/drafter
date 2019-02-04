@@ -1,7 +1,9 @@
 package org.gurutt.drafter.service;
 
 import io.vavr.Tuple2;
+import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
+import io.vavr.collection.Map;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
 import org.gurutt.drafter.domain.Team;
@@ -12,9 +14,13 @@ import java.util.function.Function;
 @Component
 public class LineUpEngine {
 
-    public List<LineUp> decide(List<Player> players) {
+    public static final String SKILL = "skill";
+    public static final String STAMINA = "stamina";
 
-        return List.of(buildLineUp(players, Player::getSkill), buildLineUp(players, Player::getPhysics));
+    public Map<String, LineUp> decide(List<Player> players) {
+
+        return HashMap.of(SKILL, buildLineUp(players, Player::getSkill),
+                STAMINA, buildLineUp(players, Player::getPhysics));
     }
 
     private LineUp buildLineUp(List<Player> players, Function<Player, Integer> attr) {

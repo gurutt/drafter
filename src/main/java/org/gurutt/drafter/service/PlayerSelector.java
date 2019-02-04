@@ -1,6 +1,7 @@
 package org.gurutt.drafter.service;
 
 
+import io.vavr.collection.Map;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class PlayerSelector {
         this.lineUpEngine = lineUpEngine;
     }
 
-    public io.vavr.collection.List<LineUp> select(List<String> participants) {
+    public Map<String, LineUp> select(List<String> participants) {
 
         List<Player> players = findPlayers(participants);
         return lineUpEngine.decide(io.vavr.collection.List.ofAll(players));

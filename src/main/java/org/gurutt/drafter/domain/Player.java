@@ -14,10 +14,10 @@ public class Player {
 
     public static final String COLLECTION = "players";
 
-    public Player(String name, int skill, int physics) {
+    public Player(String slug, int skill, int physics) {
         this.skill = skill;
         this.physics = physics;
-        this.name = name;
+        this.slug = slug;
     }
 
     @Id

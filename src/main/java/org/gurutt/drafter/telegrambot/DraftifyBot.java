@@ -1,6 +1,8 @@
 package org.gurutt.drafter.telegrambot;
 
 import io.vavr.collection.List;
+import io.vavr.collection.Map;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.service.PlayerSelector;
@@ -31,15 +33,16 @@ public class DraftifyBot extends TelegramLongPollingBot {
     }
 
     @Override
+    @SneakyThrows
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText() && update.getMessage().getText().contains(CMD)) {
             Message message = update.getMessage();
             long chat_id = update.getMessage().getChatId();
 
-            List<LineUp> select;
+            Map<String, LineUp> select;
             try {
                 java.util.List<String> participants = Arrays.asList(message.getText()
-                        .replaceAll(CMD,"")
+                        .replaceAll(CMD, "")
                         .trim()
                         .split("\\s*,\\s*"));
                 select = playerSelector.select(participants);
@@ -49,11 +52,7 @@ public class DraftifyBot extends TelegramLongPollingBot {
                         .setChatId(chat_id)
                         .setParseMode("markdown")
                         .setText("_Unable to parse incoming msg, use comma separated list with known players._");
-                try {
-                    execute(error);
-                } catch (TelegramApiException e1) {
-                    LOGGER.error("Issue: ", e);
-                }
+                execute(error);
                 return;
             }
 
@@ -61,13 +60,7 @@ public class DraftifyBot extends TelegramLongPollingBot {
                     .setChatId(chat_id)
                     .setParseMode("markdown")
                     .setText(BotResponse.lineUp(select));
-            try {
-                execute(send);
-            } catch (TelegramApiException e) {
-                LOGGER.error("Issue: ", e);
-
-            }
-
+            execute(send);
         }
 
     }
