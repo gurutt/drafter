@@ -4,3 +4,5 @@ spring:
       host: ${MONGO_HOST:localhost}
       port: ${MONGO_PORT:27017}
       database: drafter
+
+telegram.bot.token: ${DRAFTIFY_TOKEN:652765743:AAEg_3F6sPUv9bUAGDrP4Hmd_DXNayVERiM}

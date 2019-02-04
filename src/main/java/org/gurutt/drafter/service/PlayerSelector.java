@@ -1,6 +1,7 @@
 package org.gurutt.drafter.service;
 
 
+import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -23,10 +24,11 @@ public class PlayerSelector {
         this.lineUpEngine = lineUpEngine;
     }
 
-    public Object select(List<String> participants) {
+    public io.vavr.collection.List<LineUp> select(List<String> participants) {
 
         List<Player> players = findPlayers(participants);
-        return lineUpEngine.decide(io.vavr.collection.List.ofAll(players));
+        io.vavr.collection.List<LineUp> decide = lineUpEngine.decide(io.vavr.collection.List.ofAll(players));
+        return decide;
     }
 
     //TODO replace list with vavr

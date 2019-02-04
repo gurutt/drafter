@@ -2,53 +2,61 @@
   {
     "slug": "yura",
     "skill": 14,
-    "physics": 10
+    "physics": 10,
+    "name": "Юра"
   },
   {
     "slug": "dimonr",
     "skill": 11,
-    "physics": 9
+    "physics": 9,
+    "name": "Димон Рощин"
   },
   {
     "slug": "igor",
     "skill": 16,
-    "physics": 9
+    "physics": 9,
+    "name": "Игорь"
   },
   {
     "slug": "kolya",
     "skill": 15,
-    "physics": 8
+    "physics": 8,
+    "name": "Коля"
   },
   {
     "slug": "reus",
     "skill": 9,
-    "physics": 6
+    "physics": 6,
+    "name": "Ройс"
   },
   {
     "slug": "nikita",
     "skill": 9,
-    "physics": 8
+    "physics": 8,
+    "name": "Никита"
   },
   {
     "slug": "roma",
     "skill": 11,
-    "physics": 7
+    "physics": 7,
+    "name": "Рома"
   },
   {
     "slug": "vanya",
     "skill": 6,
-    "physics": 8
+    "physics": 8,
+    "name": "Ваня"
   },
   {
     "slug": "rost",
     "skill": 8,
-    "physics": 4
+    "physics": 4,
+    "name": "Ростик"
   },
   {
     "slug": "valik",
     "skill": 18,
-    "physics": 9
+    "physics": 9,
+    "name": "Валик"
   }
-
-
 ]
