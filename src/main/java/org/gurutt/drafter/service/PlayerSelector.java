@@ -1,6 +1,7 @@
 package org.gurutt.drafter.service;
 
 
+import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
@@ -9,9 +10,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class PlayerSelector {
@@ -31,14 +29,10 @@ public class PlayerSelector {
         return lineUpEngine.decide(io.vavr.collection.List.ofAll(players));
     }
 
-    //TODO replace list with vavr
     private List<Player> findPlayers(List<String> participants) {
         Query query = new Query();
-        java.util.List<Criteria> criteria = new ArrayList<>();
-        for (String participant : participants) {
-            criteria.add(Criteria.where("slug").is(participant.toLowerCase()));
-        }
-        query.addCriteria(new Criteria().orOperator(criteria.toArray(new Criteria[0])));
-        return mongoTemplate.find(query, Player.class);
+        List<Criteria> criteria = participants.map(p -> Criteria.where("slug").is(p.toLowerCase()));
+        query.addCriteria(new Criteria().orOperator(criteria.toJavaArray(Criteria.class)));
+        return List.ofAll(mongoTemplate.find(query, Player.class));
     }
 }

@@ -14,8 +14,8 @@ import java.util.function.Function;
 @Component
 public class LineUpEngine {
 
-    public static final String SKILL = "skill";
-    public static final String STAMINA = "stamina";
+    public static final String SKILL = "Skill";
+    public static final String STAMINA = "Stamina";
 
     public Map<String, LineUp> decide(List<Player> players) {
 

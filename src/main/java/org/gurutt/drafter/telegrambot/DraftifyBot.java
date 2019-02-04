@@ -13,7 +13,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.Arrays;
 
@@ -41,10 +40,18 @@ public class DraftifyBot extends TelegramLongPollingBot {
 
             Map<String, LineUp> select;
             try {
-                java.util.List<String> participants = Arrays.asList(message.getText()
+                List<String> participants = List.of(message.getText()
                         .replaceAll(CMD, "")
                         .trim()
                         .split("\\s*,\\s*"));
+                if (participants.size() <  6) {
+                    SendMessage kek = new SendMessage()
+                            .setChatId(chat_id)
+                            .setParseMode("markdown")
+                            .setText("_Не играйтесь_");
+                    execute(kek);
+                    return;
+                }
                 select = playerSelector.select(participants);
             } catch (Exception e) {
                 LOGGER.error("Issue: ", e);
