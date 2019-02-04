@@ -6,7 +6,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -32,7 +31,7 @@ public class BotInit implements ApplicationRunner {
         try {
             botsApi.registerBot(bot);
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            LOGGER.error("Issue: ", e);
         }
 
     }
