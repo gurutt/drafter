@@ -26,7 +26,7 @@ public class PlayerSelector {
     public Map<String, LineUp> select(List<String> participants) {
 
         List<Player> players = findPlayers(participants);
-        return lineUpEngine.decide(io.vavr.collection.List.ofAll(players));
+        return lineUpEngine.decide(players);
     }
 
     private List<Player> findPlayers(List<String> participants) {

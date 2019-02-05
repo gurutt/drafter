@@ -7,23 +7,29 @@ import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
 import org.gurutt.drafter.domain.Team;
 
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
+import static org.apache.commons.lang3.StringUtils.wrap;
 import static org.gurutt.drafter.service.LineUpEngine.SKILL;
 import static org.gurutt.drafter.service.LineUpEngine.STAMINA;
 
 
 class BotResponse {
 
-    private static final Function<Team, String> fSkill = t -> "*Total Skill:* " + t.overallSkill() + "\n";
-    private static final Function<Team, String> fStamina = t -> "*Total Stamina:* " + t.overallPhysics() + "\n";
+    private static final String BOLD = "*";
 
-    private static Map<String, Function> DETAILS = HashMap.of(SKILL, fSkill, STAMINA, fStamina);
+    private static final BiFunction<Team, String, String> fSkill =
+            (team, type) -> String.format(wrap("Total %s: ", BOLD), type) + team.overallSkill() + "\n";
 
-    static String lineUp(Map<String, LineUp> lines) {
+    private static final BiFunction<Team, String, String> fStamina =
+            (team, type) -> String.format(wrap("Total %s: ", BOLD), type) + team.overallPhysics() + "\n";
+
+    private static final Map<String, BiFunction> DETAILS = HashMap.of(SKILL, fSkill, STAMINA, fStamina);
+
+    static String success(Map<String, LineUp> lines) {
         StringBuilder builder = new StringBuilder();
         lines.forEach(l -> {
-            builder.append(String.format("*%s version*\n", l._1));
+            builder.append(String.format(wrap("%s version", BOLD) + "\n", l._1));
             builder.append(teams(List.of(l._2.getWest(), l._2.getEast()), l._1));
             builder.append("\n\n");
         });
@@ -35,15 +41,14 @@ class BotResponse {
         StringBuilder builder = new StringBuilder();
         teams.forEach(team -> {
             builder.append(roster(team));
-            builder.append(DETAILS.get(type).get().apply(team));
+            builder.append(DETAILS.get(type).get().apply(team, type));
             builder.append("\n");
         });
 
         return builder.toString();
-
     }
 
     private static String roster(Team team) {
-        return "*Team:* " + String.join(", ", team.getPlayers().map(Player::getName)) + "\n";
+        return wrap("Team: ", BOLD) + String.join(", ", team.getPlayers().map(Player::getName)) + "\n";
     }
 }

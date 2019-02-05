@@ -14,8 +14,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.Arrays;
-
 @Component
 @Slf4j
 public class DraftifyBot extends TelegramLongPollingBot {
@@ -44,14 +42,6 @@ public class DraftifyBot extends TelegramLongPollingBot {
                         .replaceAll(CMD, "")
                         .trim()
                         .split("\\s*,\\s*"));
-                if (participants.size() <  6) {
-                    SendMessage kek = new SendMessage()
-                            .setChatId(chat_id)
-                            .setParseMode("markdown")
-                            .setText("_Не играйтесь_");
-                    execute(kek);
-                    return;
-                }
                 select = playerSelector.select(participants);
             } catch (Exception e) {
                 LOGGER.error("Issue: ", e);
@@ -66,7 +56,7 @@ public class DraftifyBot extends TelegramLongPollingBot {
             SendMessage send = new SendMessage()
                     .setChatId(chat_id)
                     .setParseMode("markdown")
-                    .setText(BotResponse.lineUp(select));
+                    .setText(BotResponse.success(select));
             execute(send);
         }
 
