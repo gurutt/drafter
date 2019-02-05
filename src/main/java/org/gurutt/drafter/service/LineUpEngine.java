@@ -16,6 +16,7 @@ public class LineUpEngine {
 
     public static final String SKILL = "Skill";
     public static final String STAMINA = "Stamina";
+    private static final int MIN_DIFF = 5;
 
     public Map<String, LineUp> decide(List<Player> players) {
 
@@ -28,8 +29,6 @@ public class LineUpEngine {
 
         players = players.sortBy(attr).reverse();
 
-        Player worth = players.get(players.size() - 1);
-
         List<Player> west = players.zipWithIndex()
                 .filter(t -> t._2 % 2 == 0)
                 .map(t -> t._1);
@@ -40,7 +39,7 @@ public class LineUpEngine {
 
         Tuple2<Integer, Integer> total = totalValue(west, east, attr);
         int i = 0;
-        while (Math.abs(total._1 - total._2) > worth.getSkill()) {
+        while (Math.abs(total._1 - total._2) > MIN_DIFF) {
             int idx = west.size() - 1;
             if (i == idx + 1) {
                 break;
@@ -67,9 +66,9 @@ public class LineUpEngine {
 
     private Tuple2<Integer, Integer> totalValue(List<Player> west, List<Player> east, Function<Player, Integer> criterion) {
 
-        int westSkill = west.map(criterion).sum().intValue();
-        int eastSkill = east.map(criterion).sum().intValue();
+        int westTotal = west.map(criterion).sum().intValue();
+        int eastTotal = east.map(criterion).sum().intValue();
 
-        return new Tuple2<>(westSkill, eastSkill);
+        return new Tuple2<>(westTotal, eastTotal);
     }
 }
