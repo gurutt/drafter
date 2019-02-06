@@ -5,5 +5,5 @@ classes
 *.ipr
 *.iws
 **/.vagrant/*
-/build
+/build/
 /out
