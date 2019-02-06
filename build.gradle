@@ -48,7 +48,7 @@ jacoco {
 jacocoTestReport {
 	afterEvaluate {
 		classDirectories = files(classDirectories.files.collect {
-			fileTree(dir: it, exclude: ['**/Application*'])
+			fileTree(dir: it, exclude: ['**/MongoDbInitializer*', '**/Application*'])
 		})
 	}
 }
