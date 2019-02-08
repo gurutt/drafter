@@ -14,6 +14,9 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import static org.apache.commons.lang3.StringUtils.startsWith;
+import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
+
 @Component
 @Slf4j
 public class DraftifyBot extends TelegramLongPollingBot {
@@ -32,7 +35,8 @@ public class DraftifyBot extends TelegramLongPollingBot {
     @Override
     @SneakyThrows
     public void onUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText() && update.getMessage().getText().contains(CMD)) {
+        if (update.hasMessage() && update.getMessage().hasText() && startsWith(update.getMessage().getText(), (CMD))) {
+
             Message message = update.getMessage();
             long chat_id = update.getMessage().getChatId();
 
@@ -42,12 +46,13 @@ public class DraftifyBot extends TelegramLongPollingBot {
                         .replaceAll(CMD, "")
                         .trim()
                         .split("\\s*,\\s*"));
+
                 select = playerSelector.select(participants);
             } catch (Exception e) {
                 LOGGER.error("Issue: ", e);
                 SendMessage error = new SendMessage()
                         .setChatId(chat_id)
-                        .setParseMode("markdown")
+                        .setParseMode(MARKDOWN)
                         .setText("_Unable to parse incoming msg, use comma separated list with known players._");
                 execute(error);
                 return;
@@ -55,7 +60,7 @@ public class DraftifyBot extends TelegramLongPollingBot {
 
             SendMessage send = new SendMessage()
                     .setChatId(chat_id)
-                    .setParseMode("markdown")
+                    .setParseMode(MARKDOWN)
                     .setText(BotResponse.success(select));
             execute(send);
         }

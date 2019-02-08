@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 class LineUpEngineTest {
 
-    private LineUpEngine lineUpEngine = new LineUpEngine(new OneByOneDrafter());
+    private LineUpEngine lineUpEngine = new LineUpEngine(new SlotSwapDrafter());
 
     @BeforeAll
     static void init() {

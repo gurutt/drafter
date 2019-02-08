@@ -14,7 +14,7 @@ import static org.gurutt.drafter.service.TestPlayerData.load;
 
 class OneByOneDrafterTest {
 
-    private OneByOneDrafter oneByOneDrafter = new OneByOneDrafter();
+    private SlotSwapDrafter oneByOneDrafter = new SlotSwapDrafter();
 
     @BeforeAll
     static void init() {
