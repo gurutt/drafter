@@ -18,7 +18,7 @@ class LineUpEngineTest {
     private static final String SEREGA = "serega";
     private static final String ROMA = "roma";
     private static final String LALKA = "lalka";
-    private LineUpEngine lineUpEngine = new LineUpEngine();
+    private LineUpEngine lineUpEngine = new LineUpEngine(new OneByOneDrafter());
 
     @Test
     void testTwoOnTwo() {
