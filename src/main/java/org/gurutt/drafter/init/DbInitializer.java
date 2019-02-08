@@ -18,13 +18,13 @@ import java.io.UncheckedIOException;
 
 @Order(1)
 @Component
-public class MongoDbInitializer implements ApplicationRunner {
+public class DbInitializer implements ApplicationRunner {
     private static final String INIT_DATA_FILE = "players.json";
 
     private final MongoTemplate mongo;
 
     @Autowired
-    public MongoDbInitializer(MongoTemplate mongo) {
+    public DbInitializer(MongoTemplate mongo) {
         this.mongo = mongo;
     }
 

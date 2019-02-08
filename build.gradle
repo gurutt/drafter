@@ -48,7 +48,7 @@ jacoco {
 jacocoTestReport {
 	afterEvaluate {
 		classDirectories = files(classDirectories.files.collect {
-			fileTree(dir: it, exclude: ['org/gurutt/drafter/domain/**','**/MongoDbInitializer*', '**/DrafterApplication**'])
+			fileTree(dir: it, exclude: ['org/gurutt/drafter/domain/**','**/DbInitializer*', '**/BotInit*', '**/DrafterApplication**'])
 		})
 	}
 }
