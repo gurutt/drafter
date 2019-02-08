@@ -10,7 +10,7 @@ import java.util.function.Function;
 public class DraftContext {
 
     private Function<Player, Integer> attr;
-    private Integer minDiff = 5;
+    private Integer maxDiff = 5;
 
     private DraftContext(Function<Player, Integer> attr) {
         this.attr = attr;

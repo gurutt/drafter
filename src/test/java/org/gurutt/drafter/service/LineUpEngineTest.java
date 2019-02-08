@@ -4,27 +4,33 @@ import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static org.gurutt.drafter.service.LineUpEngine.SKILL;
 import static org.gurutt.drafter.service.LineUpEngine.STAMINA;
+import static org.gurutt.drafter.service.TestPlayerData.IGOR;
+import static org.gurutt.drafter.service.TestPlayerData.NIKITA;
+import static org.gurutt.drafter.service.TestPlayerData.ROMA;
+import static org.gurutt.drafter.service.TestPlayerData.YURA;
+import static org.gurutt.drafter.service.TestPlayerData.load;
+import static org.gurutt.drafter.service.TestPlayerData.players;
 import static org.junit.Assert.assertTrue;
 
 class LineUpEngineTest {
 
-    private static final String YURA = "yura";
-    private static final String SEREGA = "serega";
-    private static final String ROMA = "roma";
-    private static final String LALKA = "lalka";
     private LineUpEngine lineUpEngine = new LineUpEngine(new OneByOneDrafter());
+
+    @BeforeAll
+    static void init() {
+        load();
+    }
 
     @Test
     void testTwoOnTwo() {
 
         // given
-        List<Player> players = getPlayers();
+        List<Player> players = players(YURA, ROMA, IGOR, NIKITA);
 
         // when
         Map<String, LineUp> rosters = lineUpEngine.decide(players);
@@ -33,15 +39,15 @@ class LineUpEngineTest {
         // then
         List<String> westRoster = skills.getWest().getPlayers().map(Player::getSlug);
         List<String> eastRoster = skills.getEast().getPlayers().map(Player::getSlug);
-        assertTrue(westRoster.containsAll(Arrays.asList(YURA, LALKA)));
-        assertTrue(eastRoster.containsAll(Arrays.asList(ROMA, SEREGA)));
+        assertTrue(westRoster.containsAll(List.of(NIKITA, IGOR)));
+        assertTrue(eastRoster.containsAll(List.of(YURA, ROMA)));
         assertTrue(rosters.containsKey(STAMINA));
     }
 
     @Test
     public void testBigGame() {
 
-        Player p1 = new Player("yura",14, 10);
+        Player p1 = new Player("yura", 14, 10);
         Player p2 = new Player("roshin", 11, 9);
         Player p3 = new Player("igor", 16, 9);
         Player p4 = new Player("kolya", 15, 8);
@@ -58,11 +64,5 @@ class LineUpEngineTest {
         System.out.println(pick.getEast());
     }
 
-    private List<Player> getPlayers() {
-        Player yura = new Player(YURA, 14, 10);
-        Player serega = new Player(SEREGA, 9, 9);
-        Player roma = new Player(ROMA, 4, 4);
-        Player lalka = new Player(LALKA, 3, 2);
-        return List.of(yura, serega, roma, lalka);
-    }
+
 }

@@ -21,7 +21,7 @@ public class Team {
     @Override
     public String toString() {
         return "Team{" +
-                "players=" + String.join(",", players.map(Player::getSlug)) +
+                "players=" + String.join(",", players.map(Player::getSkill).toString()) +
                 ", overallSkill=" + overallSkill() +
                 ", overallPhysics=" + overallPhysics() +
                 '}';

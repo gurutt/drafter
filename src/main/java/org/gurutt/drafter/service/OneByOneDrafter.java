@@ -29,13 +29,17 @@ public class OneByOneDrafter implements Drafter {
                 .map(t -> t._1);
 
         Tuple2<Integer, Integer> total = totalValue(west, east, attr);
-        int i = 0;
-        while (Math.abs(total._1 - total._2) > draftContext.getMinDiff()) {
+
+        int slot = 0;
+        int initialDiff = 1;
+
+        while (Math.abs(total._1 - total._2) > initialDiff && initialDiff <= draftContext.getMaxDiff()) {
             int idx = west.size() - 1;
-            if (i == idx + 1) {
-                break;
+            if (slot == idx + 1) {
+                //break;
+                initialDiff++;
             }
-            int index = idx - i;
+            int index = idx - slot;
             Player p1 = west.get(index);
             Player p2 = east.get(index);
             west = west.replace(p1, p2);
@@ -47,7 +51,7 @@ public class OneByOneDrafter implements Drafter {
                 break;
             }
             total = newAttr;
-            i++;
+            slot++;
         }
 
         lineUp.setWest(new Team(west));
