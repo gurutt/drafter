@@ -18,6 +18,10 @@ class TestPlayerData {
     static final String NIKITA = "nikita";
     static final String VANYA = "vanya";
     static final String REUS = "reus";
+    static final String VALIK = "valik";
+    static final String DIMONR = "dimonr";
+    static final String KOLYA = "kolya";
+    static final String ROST = "rost";
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static List<Player> players;
@@ -34,6 +38,10 @@ class TestPlayerData {
 
     static List<Player> players(String... names) {
         return bySlug(List.of(names));
+    }
+
+    static List<Player> players(List<String> names) {
+        return bySlug(names);
     }
 
     private static List<Player> bySlug(List<String> slug) {
