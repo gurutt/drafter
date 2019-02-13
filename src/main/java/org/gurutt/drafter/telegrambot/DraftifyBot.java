@@ -54,17 +54,21 @@ public class DraftifyBot extends TelegramLongPollingBot {
                         .setChatId(chat_id)
                         .setParseMode(MARKDOWN)
                         .setText("_Unable to parse incoming msg, use comma separated list with known players._");
-                execute(error);
+                send(error);
                 return;
             }
 
-            SendMessage send = new SendMessage()
+            SendMessage reply = new SendMessage()
                     .setChatId(chat_id)
                     .setParseMode(MARKDOWN)
                     .setText(BotResponse.success(select));
-            execute(send);
+            send(reply);
         }
 
+    }
+
+    void send(SendMessage error) throws org.telegram.telegrambots.meta.exceptions.TelegramApiException {
+        execute(error);
     }
 
     @Override

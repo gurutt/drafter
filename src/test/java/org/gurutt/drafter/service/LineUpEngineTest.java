@@ -15,6 +15,7 @@ import static org.gurutt.drafter.service.TestPlayerData.ROMA;
 import static org.gurutt.drafter.service.TestPlayerData.YURA;
 import static org.gurutt.drafter.service.TestPlayerData.load;
 import static org.gurutt.drafter.service.TestPlayerData.players;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 class LineUpEngineTest {
@@ -27,25 +28,35 @@ class LineUpEngineTest {
     }
 
     @Test
-    void testTwoOnTwo() {
+    void testDefaultAttr() {
 
         // given
         List<Player> players = players(YURA, ROMA, IGOR, NIKITA);
 
         // when
-        Map<String, LineUp> rosters = lineUpEngine.decide(players);
-        LineUp skills = rosters.get(SKILL).get();
+        Map<String, LineUp> rosters = lineUpEngine.decide(players, List.empty());
 
         // then
-        List<String> westRoster = skills.getWest().getPlayers().map(Player::getSlug);
-        List<String> eastRoster = skills.getEast().getPlayers().map(Player::getSlug);
-        assertTrue(westRoster.containsAll(List.of(NIKITA, IGOR)));
-        assertTrue(eastRoster.containsAll(List.of(YURA, ROMA)));
-        assertTrue(rosters.containsKey(STAMINA));
+        assertTrue(rosters.containsKey(SKILL));
     }
 
     @Test
-    public void testBigGame() {
+    void testMultipleAttrs() {
+
+        // given
+        List<Player> players = players(YURA, ROMA, IGOR, NIKITA);
+
+        // when
+        Map<String, LineUp> rosters = lineUpEngine.decide(players, List.of(SKILL, STAMINA));
+
+        // then
+        assertTrue(rosters.containsKey(SKILL));
+        assertTrue(rosters.containsKey(STAMINA));
+        assertEquals(2, rosters.size());
+    }
+
+    @Test
+    void testBigGame() {
 
         Player p1 = new Player("yura", 14, 10);
         Player p2 = new Player("roshin", 11, 9);
@@ -59,7 +70,7 @@ class LineUpEngineTest {
         Player p10 = new Player("valik", 18, 9);
         List<Player> of = List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 
-        LineUp pick = lineUpEngine.decide(of).get(SKILL).get();
+        LineUp pick = lineUpEngine.decide(of, List.empty()).get(SKILL).get();
         System.out.println(pick.getWest());
         System.out.println(pick.getEast());
     }

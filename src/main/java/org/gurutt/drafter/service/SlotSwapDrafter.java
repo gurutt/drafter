@@ -32,8 +32,8 @@ public class SlotSwapDrafter implements Drafter {
         while (Math.abs(total._1 - total._2) > initialDiff && initialDiff <= draftContext.getMaxDiff()) {
             int idx = west.size() - 1;
             if (slot == idx + 1) {
-                //break;
                 initialDiff++;
+                slot = 0;
             }
             int index = idx - slot;
             Player p1 = west.get(index);
@@ -46,7 +46,8 @@ public class SlotSwapDrafter implements Drafter {
             if (Math.abs(total._1 - total._2) < Math.abs(newAttr._1 - newAttr._2)) {
                 west = west.replace(p2, p1);
                 east = east.replace(p1, p2);
-                break;
+                initialDiff++;
+                //slot = 0;
             }
             total = newAttr;
             slot++;
