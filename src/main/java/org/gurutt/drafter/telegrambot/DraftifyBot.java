@@ -1,73 +1,67 @@
 package org.gurutt.drafter.telegrambot;
 
 import io.vavr.collection.List;
-import io.vavr.collection.Map;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.gurutt.drafter.domain.LineUp;
-import org.gurutt.drafter.service.PlayerSelector;
+import org.gurutt.drafter.telegrambot.processor.MessageProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import static org.apache.commons.lang3.StringUtils.startsWith;
 import static org.telegram.telegrambots.meta.api.methods.ParseMode.MARKDOWN;
 
 @Component
 @Slf4j
 public class DraftifyBot extends TelegramLongPollingBot {
 
-    private static final String CMD = "/draft";
     @Value("${telegram.bot.token}")
     private String token;
 
-    private final PlayerSelector playerSelector;
+    //Spring can't autowire vavr list so...
+    private final java.util.List<MessageProcessor> processors;
 
     @Autowired
-    public DraftifyBot(PlayerSelector playerSelector) {
-        this.playerSelector = playerSelector;
+    public DraftifyBot(java.util.List<MessageProcessor> processors) {
+        this.processors = processors;
     }
 
     @Override
     @SneakyThrows
     public void onUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText() && startsWith(update.getMessage().getText(), (CMD))) {
+        Long chat_id = null;
+        try {
+            if (update.hasMessage() && update.getMessage().hasText()) {
+                chat_id = update.getMessage().getChatId();
 
-            Message message = update.getMessage();
-            long chat_id = update.getMessage().getChatId();
+                String replyMsg = processors.stream()
+                        .filter(m -> m.match(update))
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalArgumentException("Couldn't find matched processor"))
+                        .handle(update.getMessage());
 
-            Map<String, LineUp> select;
-            try {
-                List<String> participants = List.of(message.getText()
-                        .replaceAll(CMD, "")
-                        .trim()
-                        .split("\\s*,\\s*"));
-
-                select = playerSelector.select(participants);
-            } catch (Exception e) {
-                LOGGER.error("Issue: ", e);
-                SendMessage error = new SendMessage()
-                        .setChatId(chat_id)
-                        .setParseMode(MARKDOWN)
-                        .setText("_Unable to parse incoming msg, use comma separated list with known players._");
-                send(error);
-                return;
+                reply(chat_id, replyMsg);
             }
-
-            SendMessage reply = new SendMessage()
-                    .setChatId(chat_id)
-                    .setParseMode(MARKDOWN)
-                    .setText(BotResponse.success(select));
-            send(reply);
+        } catch (Exception e) {
+            LOGGER.error("Issue: ", e);
+            if (chat_id != null) {
+                reply(chat_id, e.getMessage());
+            }
         }
-
     }
 
-    void send(SendMessage error) throws org.telegram.telegrambots.meta.exceptions.TelegramApiException {
+    private void reply(Long chat_id, String msg) throws TelegramApiException {
+        SendMessage reply = new SendMessage()
+                .setChatId(chat_id)
+                .setParseMode(MARKDOWN)
+                .setText(msg);
+        send(reply);
+    }
+
+    void send(SendMessage error) throws TelegramApiException {
         execute(error);
     }
 

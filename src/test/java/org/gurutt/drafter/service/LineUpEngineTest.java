@@ -58,16 +58,16 @@ class LineUpEngineTest {
     @Test
     void testBigGame() {
 
-        Player p1 = new Player("yura", 14, 10);
-        Player p2 = new Player("roshin", 11, 9);
-        Player p3 = new Player("igor", 16, 9);
-        Player p4 = new Player("kolya", 15, 8);
-        Player p5 = new Player("reus", 9, 6);
-        Player p6 = new Player("nikita", 9, 8);
-        Player p7 = new Player("roma", 11, 7);
-        Player p8 = new Player("vanya", 6, 8);
-        Player p9 = new Player("rost", 8, 4);
-        Player p10 = new Player("valik", 18, 9);
+        Player p1 = new Player("yura", 14, 10, null);
+        Player p2 = new Player("roshin", 11, 9,null);
+        Player p3 = new Player("igor", 16, 9, null);
+        Player p4 = new Player("kolya", 15, 8, null);
+        Player p5 = new Player("reus", 9, 6, null);
+        Player p6 = new Player("nikita", 9, 8,null);
+        Player p7 = new Player("roma", 11, 7, null);
+        Player p8 = new Player("vanya", 6, 8, null);
+        Player p9 = new Player("rost", 8, 4, null);
+        Player p10 = new Player("valik", 18, 9, null);
         List<Player> of = List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 
         LineUp pick = lineUpEngine.decide(of, List.empty()).get(SKILL).get();
