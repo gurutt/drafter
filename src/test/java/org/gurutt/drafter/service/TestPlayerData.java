@@ -49,8 +49,16 @@ public class TestPlayerData {
         return players.filter(player -> slug.contains(player.getSlug()));
     }
 
-    public static Update pullUpdate() {
-        Resource resource = new ClassPathResource("draftMessage.json");
+    public static Update pullDraftUpdate() {
+       return pullUpdate("draftMessage.json");
+    }
+
+    public static Update pullPlayerListUpdate() {
+        return pullUpdate("playerList.json");
+    }
+
+    public static Update pullUpdate(String filename) {
+        Resource resource = new ClassPathResource(filename);
         Update update = new Update();
         try (InputStream stream = resource.getInputStream()) {
             update = MAPPER.readValue(stream,

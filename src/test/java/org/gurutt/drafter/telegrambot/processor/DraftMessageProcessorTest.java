@@ -52,7 +52,7 @@ class DraftMessageProcessorTest {
 
     @Test
     void match() {
-        assertTrue(messageProcessor.match(TestPlayerData.pullUpdate()));
+        assertTrue(messageProcessor.match(TestPlayerData.pullDraftUpdate()));
     }
 
     @Test
@@ -66,7 +66,7 @@ class DraftMessageProcessorTest {
         mongoTemplate.save(buildPlayer("reus"));
 
         // when
-        Update update = TestPlayerData.pullUpdate();
+        Update update = TestPlayerData.pullDraftUpdate();
         String reply = messageProcessor.handle(update.getMessage());
 
         // then
