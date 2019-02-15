@@ -48,7 +48,7 @@ public class DraftMessageProcessor implements MessageProcessor<Tuple2<List<Strin
         String[] params = text.replaceAll(DRAFT_CMD, "").trim().split("\\|");
         List<String> participants = List.of(params[0].trim().split("\\s*,\\s*"));
 
-        return Tuple.of(participants, params.length > 1 ? params[1] : null);
+        return Tuple.of(participants, params.length > 1 ? params[1].trim() : null);
     }
 
     @Override

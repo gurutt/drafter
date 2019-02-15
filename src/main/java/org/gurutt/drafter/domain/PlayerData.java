@@ -28,17 +28,21 @@ public class PlayerData {
     private Football football;
 
     @Data
-    static class Football {
-        Attributes attributes;
+    public static class Football {
+        private Attributes attributes;
     }
 
     @Data
-    static class Basketball {
-        Attributes attributes;
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Basketball {
+        private Attributes attributes;
     }
 
     @Data
-    private static class Attributes {
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Attributes {
         // 1 - 20
         private int skill;
         // 1 - 12

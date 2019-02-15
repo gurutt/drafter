@@ -5,12 +5,13 @@ import io.vavr.collection.List;
 import org.gurutt.drafter.domain.Player;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 
-class TestPlayerData {
+public class TestPlayerData {
 
     static final String YURA = "yura";
     static final String IGOR = "igor";
@@ -46,5 +47,17 @@ class TestPlayerData {
 
     private static List<Player> bySlug(List<String> slug) {
         return players.filter(player -> slug.contains(player.getSlug()));
+    }
+
+    public static Update pullUpdate() {
+        Resource resource = new ClassPathResource("draftMessage.json");
+        Update update = new Update();
+        try (InputStream stream = resource.getInputStream()) {
+            update = MAPPER.readValue(stream,
+                    Update.class);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        return update;
     }
 }

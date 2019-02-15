@@ -5,6 +5,7 @@ import org.gurutt.drafter.config.PlayerSelectorConfiguration;
 import org.gurutt.drafter.domain.Player;
 import org.gurutt.drafter.domain.PlayerData;
 import org.gurutt.drafter.service.PlayerSelector;
+import org.gurutt.drafter.service.TestPlayerData;
 import org.gurutt.drafter.telegrambot.processor.DraftMessageProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,11 +40,9 @@ class DraftifyBotTest {
     @Spy
     private DraftifyBot draftifyBot = new DraftifyBot(Arrays.asList(new DraftMessageProcessor(playerSelector)));
 
-
     @BeforeEach
     void setUp() {
         mongoTemplate.dropCollection(PlayerData.COLLECTION);
-
     }
 
     @Test
@@ -51,21 +50,9 @@ class DraftifyBotTest {
 
         doNothing().when(draftifyBot).send(any(SendMessage.class));
 
-        Update update = pullUpdate();
+        Update update = TestPlayerData.pullUpdate();
 
         draftifyBot.onUpdateReceived(update);
 
-    }
-
-    private Update pullUpdate() {
-        Resource resource = new ClassPathResource("message.json");
-        Update update = new Update();
-        try (InputStream stream = resource.getInputStream()) {
-            update = MAPPER.readValue(stream,
-                    Update.class);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-        return update;
     }
 }
