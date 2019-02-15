@@ -13,21 +13,21 @@ import java.io.UncheckedIOException;
 
 public class TestPlayerData {
 
-    static final String YURA = "yura";
-    static final String IGOR = "igor";
-    static final String ROMA = "roma";
-    static final String NIKITA = "nikita";
-    static final String VANYA = "vanya";
-    static final String REUS = "reus";
-    static final String VALIK = "valik";
-    static final String DIMONR = "dimonr";
-    static final String KOLYA = "kolya";
-    static final String ROST = "rost";
+    public static final String YURA = "yura";
+    public static final String IGOR = "igor";
+    public static final String ROMA = "roma";
+    public static final String NIKITA = "nikita";
+    public static final String VANYA = "vanya";
+    public static final String REUS = "reus";
+    public static final String VALIK = "valik";
+    public static final String DIMONR = "dimonr";
+    public static final String KOLYA = "kolya";
+    public static final String ROST = "rost";
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static List<Player> players;
 
-    static List<Player> load() {
+    public static List<Player> load() {
         Resource resource = new ClassPathResource("players.json");
         try (InputStream stream = resource.getInputStream()) {
             players = List.of(MAPPER.readValue(stream, Player[].class));
@@ -37,7 +37,7 @@ public class TestPlayerData {
         }
     }
 
-    static List<Player> players(String... names) {
+    public static List<Player> players(String... names) {
         return bySlug(List.of(names));
     }
 
