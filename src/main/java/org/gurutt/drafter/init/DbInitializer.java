@@ -1,7 +1,7 @@
 package org.gurutt.drafter.init;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.gurutt.drafter.domain.Player;
+import org.gurutt.drafter.domain.PlayerData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -34,7 +34,7 @@ public class DbInitializer implements ApplicationRunner {
     }
 
     private void loadMainConfiguration() {
-        if (mongo.count(new Query(), Player.COLLECTION) != 0) {
+        if (mongo.count(new Query(), PlayerData.COLLECTION) != 0) {
             return;
         }
 
@@ -42,8 +42,8 @@ public class DbInitializer implements ApplicationRunner {
         if (resource.exists()) {
             try (InputStream stream = resource.getInputStream()) {
                 ObjectMapper mapper = new ObjectMapper();
-                Player[] players = mapper.readValue(stream, Player[].class);
-                for (Player player : players) {
+                PlayerData[] players = mapper.readValue(stream, PlayerData[].class);
+                for (PlayerData player : players) {
                     mongo.save(player);
                 }
             } catch (IOException e) {
