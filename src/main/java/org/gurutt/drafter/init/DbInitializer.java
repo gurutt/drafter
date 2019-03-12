@@ -34,9 +34,9 @@ public class DbInitializer implements ApplicationRunner {
     }
 
     private void loadMainConfiguration() {
-        if (mongo.count(new Query(), PlayerData.COLLECTION) != 0) {
+/*        if (mongo.count(new Query(), PlayerData.COLLECTION) != 0) {
             return;
-        }
+        }*/
 
         Resource resource = new ClassPathResource(INIT_DATA_FILE);
         if (resource.exists()) {

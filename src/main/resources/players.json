@@ -88,7 +88,7 @@
     "football": {
       "attributes": {
         "skill": 9,
-        "physics": 7
+        "physics": 8
       }
     },
     "name": "Рома"
@@ -127,6 +127,64 @@
         "physics": 9
       }
     },
+    "football": {
+      "attributes": {
+        "skill": 11,
+        "physics": 11
+      }
+    },
     "name": "Валик"
+  },
+  {
+    "slug": "poboyko",
+    "football": {
+      "attributes": {
+        "skill": 9,
+        "physics": 8
+      }
+    },
+
+    "name": "Дима П"
+  },
+  {
+    "slug": "slava",
+    "football": {
+      "attributes": {
+        "skill": 13,
+        "physics": 10
+      }
+    },
+
+    "name": "Славик"
+  },
+  {
+    "slug": "sbitnev",
+    "football": {
+      "attributes": {
+        "skill": 14,
+        "physics": 10
+      }
+    },
+    "name": "Артем"
+  },
+  {
+    "slug": "malina",
+    "football": {
+      "attributes": {
+        "skill": 10,
+        "physics": 10
+      }
+    },
+    "name": "Саша"
+  },
+  {
+    "slug": "jeka",
+    "football": {
+      "attributes": {
+        "skill": 9,
+        "physics": 5
+      }
+    },
+    "name": "Жека"
   }
 ]
