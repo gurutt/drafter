@@ -186,5 +186,25 @@
       }
     },
     "name": "Жека"
+  },
+  {
+    "slug": "serega",
+    "football": {
+      "attributes": {
+        "skill": 16,
+        "physics": 13
+      }
+    },
+    "name": "Серега"
+  },
+  {
+    "slug": "toha",
+    "football": {
+      "attributes": {
+        "skill": 10,
+        "physics": 11
+      }
+    },
+    "name": "Тоха"
   }
 ]
