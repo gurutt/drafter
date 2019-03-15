@@ -3,6 +3,7 @@ package org.gurutt.drafter.service;
 
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
+import org.gurutt.drafter.domain.GameInput;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
 import org.gurutt.drafter.domain.PlayerData;
@@ -24,10 +25,10 @@ public class PlayerSelector {
         this.lineUpEngine = lineUpEngine;
     }
 
-    public Map<String, LineUp> select(List<String> participants, String sportType) {
+    public Map<String, LineUp> select(GameInput gameInput) {
 
-        List<Player> players = findPlayers(participants, sportType);
-        return lineUpEngine.decide(players, List.empty());
+        List<Player> players = findPlayers(gameInput.getParticipants(), gameInput.getSportType());
+        return lineUpEngine.decide(players, gameInput.getAttributes());
     }
 
     public List<Player> listPlayers(String sportType) {

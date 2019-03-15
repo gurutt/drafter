@@ -56,8 +56,10 @@ public class PlayerData {
 
     private Attributes resolveAttributes(String type) {
         if (FOOTBALL.equalsIgnoreCase(StringUtils.trim(type))) {
+            if (this.football == null) throw new IllegalArgumentException("Attributes are not specified for " + type);
             return this.football.attributes;
         } else {
+            if (this.basketball == null) throw new IllegalArgumentException("Attributes are not specified for " + type);
             return this.basketball.attributes;
         }
     }

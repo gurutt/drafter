@@ -5,8 +5,10 @@ import io.vavr.Tuple2;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
+import org.gurutt.drafter.domain.GameInput;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
+import org.gurutt.drafter.domain.PlayerData;
 import org.gurutt.drafter.domain.Team;
 import org.gurutt.drafter.service.PlayerSelector;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.util.Arrays;
 import java.util.function.BiFunction;
 
 import static org.apache.commons.lang3.StringUtils.startsWith;
@@ -22,8 +25,12 @@ import static org.gurutt.drafter.service.LineUpEngine.SKILL;
 import static org.gurutt.drafter.service.LineUpEngine.STAMINA;
 
 @Component
-public class DraftMessageProcessor implements MessageProcessor<Tuple2<List<String>, String>, Map<String, LineUp>> {
+public class DraftMessageProcessor implements MessageProcessor<Map<String, Object>, Map<String, LineUp>> {
 
+    protected static final String PRM_PLAYERS = "players";
+    protected static final String PRM_SPORT_TYPE = "sportType";
+    protected static final String PRM_ATTRIBUTE = "attribute";
+    private static String[] PARAM_NAMES = {PRM_PLAYERS, PRM_SPORT_TYPE, PRM_ATTRIBUTE};
     private static final String BOLD = "*";
 
     private static final BiFunction<Team, String, String> fSkill =
@@ -44,16 +51,24 @@ public class DraftMessageProcessor implements MessageProcessor<Tuple2<List<Strin
     }
 
     @Override
-    public Tuple2<List<String>, String> parseCmd(String text) {
-        String[] params = text.replaceAll(DRAFT_CMD, "").trim().split("\\|");
-        List<String> participants = List.of(params[0].trim().split("\\s*,\\s*"));
+    public Map<String, Object> parseCmd(String text) {
+        List<String> params = List.of(text.replaceAll(DRAFT_CMD, "").trim().split("\\|"));
 
-        return Tuple.of(participants, params.length > 1 ? params[1].trim() : null);
+        return params.zipWithIndex().toLinkedMap(t -> mkEntry(t._1, t._2));
+    }
+
+    private Tuple2<String, Object> mkEntry(String param, int idx) {
+        return Tuple.of(PARAM_NAMES[idx], param);
     }
 
     @Override
-    public Map<String, LineUp> process(Message message, Tuple2<List<String>, String> params) {
-        return playerSelector.select(params._1, params._2);
+    public Map<String, LineUp> process(Message message, Map<String, Object> params) {
+        List<String> participants = List.of(params.get(PRM_PLAYERS).get().toString().trim().split("\\s*,\\s*"));
+        String sportType = !params.get(PRM_SPORT_TYPE).isDefined() ? PlayerData.BASKETBALL : params.get(PRM_SPORT_TYPE).get().toString();
+        List<String> attributes = !params.get(PRM_ATTRIBUTE).isDefined() ? List.empty() :
+                List.of(params.get(PRM_ATTRIBUTE).get().toString().trim().split("\\s*,\\s*"));
+        GameInput gameInput = GameInput.of(sportType, participants, attributes);
+        return playerSelector.select(gameInput);
     }
 
     @Override
@@ -81,6 +96,8 @@ public class DraftMessageProcessor implements MessageProcessor<Tuple2<List<Strin
         StringBuilder builder = new StringBuilder();
         teams.forEach(team -> {
             builder.append(roster(team));
+            List<Player> woDummy = team.getPlayers().removeFirst(p -> p.getSlug().equals("dummy"));
+            team.setPlayers(woDummy);
             builder.append(DETAILS.get(type).get().apply(team, type));
             builder.append("\n");
         });

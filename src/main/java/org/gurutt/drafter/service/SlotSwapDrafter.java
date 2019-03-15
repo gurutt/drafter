@@ -21,6 +21,11 @@ public class SlotSwapDrafter implements Drafter {
 
         List<Player> roster = players.sortBy(attr).reverse();
 
+        if (roster.length() % 2 != 0) {
+            Integer apply = attr.apply(roster.last());
+            roster = roster.append(new Player("dummy", apply/2, apply/2, "-"));
+        }
+
         List<Player> west = odd(roster);
         List<Player> east = odd(roster.drop(1));
 
