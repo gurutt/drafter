@@ -29,7 +29,7 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
 
     protected static final String PRM_PLAYERS = "players";
     protected static final String PRM_SPORT_TYPE = "sportType";
-    private static final String PRM_ATTRIBUTE = "attribute";
+    protected static final String PRM_ATTRIBUTE = "attribute";
     private static String[] PARAM_NAMES = {PRM_PLAYERS, PRM_SPORT_TYPE, PRM_ATTRIBUTE};
     private static final String BOLD = "*";
 

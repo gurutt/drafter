@@ -53,6 +53,18 @@ class DraftMessageProcessorTest {
     }
 
     @Test
+    void parseCmdAttr() {
+
+        Map<String, Object> result1 = messageProcessor.parseCmd("/draft one, two, three | basketball | Skill");
+
+        assertEquals(result1.get(DraftMessageProcessor.PRM_PLAYERS).get().toString().trim(), "one, two, three");
+        assertEquals("basketball", result1.get(DraftMessageProcessor.PRM_SPORT_TYPE).get().toString().trim());
+        assertEquals("Skill", result1.get(DraftMessageProcessor.PRM_ATTRIBUTE).get().toString().trim());
+
+    }
+
+
+    @Test
     void match() {
         assertTrue(messageProcessor.match(TestPlayerData.pullDraftUpdate()));
     }

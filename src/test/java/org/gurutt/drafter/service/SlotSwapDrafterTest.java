@@ -40,7 +40,8 @@ class SlotSwapDrafterTest {
                 Tuple.of(1, 28, 27, List.of(VALIK, IGOR, NIKITA, ROMA)),
                 Tuple.of(6, 25, 19, List.of(VALIK, VANYA, REUS, NIKITA)),
                 Tuple.of(6, 25, 19, List.of(VALIK, VANYA, REUS, NIKITA)),
-                Tuple.of(1, 60, 59, List.of(VALIK, VANYA, REUS, NIKITA, YURA, ROMA, KOLYA, DIMONR, ROST, IGOR))
+                Tuple.of(1, 60, 59, List.of(VALIK, VANYA, REUS, NIKITA, YURA, ROMA, KOLYA, DIMONR, ROST, IGOR)),
+                Tuple.of(1, 31, 30, List.of(VALIK, VANYA, REUS, NIKITA, YURA))
         );
     }
 
