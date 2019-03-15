@@ -1,7 +1,8 @@
 package org.gurutt.drafter.telegrambot.processor;
 
-import io.vavr.Tuple2;
 import io.vavr.collection.List;
+import io.vavr.collection.Map;
+import io.vavr.control.Option;
 import org.gurutt.drafter.config.PlayerSelectorConfiguration;
 import org.gurutt.drafter.domain.PlayerData;
 import org.gurutt.drafter.domain.PlayerData.Attributes;
@@ -17,7 +18,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ContextConfiguration(classes = PlayerSelectorConfiguration.class)
 @ExtendWith(SpringExtension.class)
@@ -38,15 +40,15 @@ class DraftMessageProcessorTest {
     @Test
     void parseCmd() {
 
-        Tuple2<List<String>, String> result = messageProcessor.parseCmd("/draft one, two, three");
+        Map<String, Object> result = messageProcessor.parseCmd("/draft one, two, three");
 
-        assertIterableEquals(result._1, List.of("one","two","three"));
-        assertNull(result._2);
+        assertEquals(result.get(DraftMessageProcessor.PRM_PLAYERS).get().toString(), "one, two, three");
+        assertEquals(Option.none(), result.get(DraftMessageProcessor.PRM_SPORT_TYPE));
 
-        Tuple2<List<String>, String> result1 = messageProcessor.parseCmd("/draft one, two, three | football");
+        Map<String, Object> result1 = messageProcessor.parseCmd("/draft one, two, three | football");
 
-        assertIterableEquals(result1._1, List.of("one","two","three"));
-        assertEquals("football", result1._2);
+        assertEquals(result1.get(DraftMessageProcessor.PRM_PLAYERS).get().toString().trim(), "one, two, three");
+        assertEquals("football", result1.get(DraftMessageProcessor.PRM_SPORT_TYPE).get().toString().trim());
 
     }
 
