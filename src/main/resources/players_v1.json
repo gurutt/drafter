@@ -1,0 +1,252 @@
+[
+  {
+    "slug": "yura",
+    "basketball": {
+      "attributes": {
+        "skill": 14,
+        "physics": 10
+      }
+    },
+    "football": {
+      "attributes": {
+        "skill": 18,
+        "physics": 13
+      }
+    },
+    "name": "Юра"
+  },
+  {
+    "slug": "dimonr",
+    "basketball": {
+      "attributes": {
+        "skill": 11,
+        "physics": 9
+      }
+    },
+    "football": {
+      "attributes": {
+        "skill": 11,
+        "physics": 11
+      }
+    },
+    "name": "Димон Рощин"
+  },
+  {
+    "slug": "igor",
+    "basketball": {
+      "attributes": {
+        "skill": 16,
+        "physics": 9
+      }
+    },
+    "name": "Игорь"
+  },
+  {
+    "slug": "kolya",
+    "basketball": {
+      "attributes": {
+        "skill": 15,
+        "physics": 8
+      }
+    },
+    "name": "Коля"
+  },
+  {
+    "slug": "reus",
+    "basketball": {
+      "attributes": {
+        "skill": 9,
+        "physics": 6
+      }
+    },
+    "football": {
+      "attributes": {
+        "skill": 12,
+        "physics": 8
+      }
+    },
+    "name": "Ройс"
+  },
+  {
+    "slug": "nikita",
+    "basketball": {
+      "attributes": {
+        "skill": 12,
+        "physics": 8
+      }
+    },
+    "football": {
+      "attributes": {
+        "skill": 11,
+        "physics": 12
+      }
+    },
+    "name": "Никита"
+  },
+  {
+    "slug": "roma",
+    "basketball": {
+      "attributes": {
+        "skill": 11,
+        "physics": 7
+      }
+    },
+    "football": {
+      "attributes": {
+        "skill": 9.25,
+        "physics": 8
+      }
+    },
+    "name": "Рома"
+  },
+  {
+    "slug": "vanya",
+    "basketball": {
+      "attributes": {
+        "skill": 7,
+        "physics": 8
+      }
+    },
+    "football": {
+      "attributes": {
+        "skill": 14.5,
+        "physics": 11
+      }
+    },
+    "name": "Ваня"
+  },
+  {
+    "slug": "rost",
+    "basketball": {
+      "attributes": {
+        "skill": 8,
+        "physics": 8
+      }
+    },
+    "football": {
+      "attributes": {
+        "skill": 10,
+        "physics": 10
+      }
+    },
+    "name": "Ростик"
+  },
+  {
+    "slug": "valik",
+    "basketball": {
+      "attributes": {
+        "skill": 18,
+        "physics": 9
+      }
+    },
+    "football": {
+      "attributes": {
+        "skill": 11,
+        "physics": 11
+      }
+    },
+    "name": "Валик"
+  },
+  {
+    "slug": "poboyko",
+    "football": {
+      "attributes": {
+        "skill": 9.75,
+        "physics": 8
+      }
+    },
+
+    "name": "Дима П"
+  },
+  {
+    "slug": "slava",
+    "football": {
+      "attributes": {
+        "skill": 14,
+        "physics": 10
+      }
+    },
+
+    "name": "Славик"
+  },
+  {
+    "slug": "sbitnev",
+    "football": {
+      "attributes": {
+        "skill": 12.29,
+        "physics": 10
+      }
+    },
+    "name": "Артем"
+  },
+  {
+    "slug": "malina",
+    "football": {
+      "attributes": {
+        "skill": 10,
+        "physics": 10
+      }
+    },
+    "name": "Саша"
+  },
+  {
+    "slug": "jeka",
+    "football": {
+      "attributes": {
+        "skill": 9.5,
+        "physics": 5
+      }
+    },
+    "name": "Жека"
+  },
+  {
+    "slug": "serega",
+    "football": {
+      "attributes": {
+        "skill": 17.2,
+        "physics": 13
+      }
+    },
+    "name": "Серега"
+  },
+  {
+    "slug": "toha",
+    "football": {
+      "attributes": {
+        "skill": 11.2,
+        "physics": 11
+      }
+    },
+    "name": "Тоха"
+  },
+  {
+    "slug": "andrey",
+    "football": {
+      "attributes": {
+        "skill": 15.67,
+        "physics": 12
+      }
+    },
+    "name": "Aндрюха"
+  },
+  {
+    "slug": "serega_volk",
+    "football": {
+      "attributes": {
+        "skill": 12,
+        "physics": 12
+      }
+    },
+    "name": "Сергей Волков"
+  },
+  {
+    "slug": "misha",
+    "football": {
+      "attributes": {
+        "skill": 9,
+        "physics": 9
+      }
+    },
+    "name": "Миша"
+  }
+]

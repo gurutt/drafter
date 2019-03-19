@@ -19,7 +19,7 @@ import java.io.UncheckedIOException;
 @Order(1)
 @Component
 public class DbInitializer implements ApplicationRunner {
-    private static final String INIT_DATA_FILE = "players.json";
+    private static final String INIT_DATA_FILE = "players_v1.json";
 
     private final MongoTemplate mongo;
 
