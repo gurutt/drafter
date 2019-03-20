@@ -44,9 +44,9 @@ public class PlayerData {
     @NoArgsConstructor
     public static class Attributes {
         // 1 - 20
-        private int skill;
+        private double skill;
         // 1 - 12
-        private int physics;
+        private double physics;
     }
 
     public Player toPlayer(String type) {
@@ -56,10 +56,10 @@ public class PlayerData {
 
     private Attributes resolveAttributes(String type) {
         if (FOOTBALL.equalsIgnoreCase(StringUtils.trim(type))) {
-            if (this.football == null) throw new IllegalArgumentException("Attributes are not specified for " + type);
+            if (this.football == null) throw new IllegalArgumentException("Attributes are not specified for " + this.slug);
             return this.football.attributes;
         } else {
-            if (this.basketball == null) throw new IllegalArgumentException("Attributes are not specified for " + type);
+            if (this.basketball == null) throw new IllegalArgumentException("Attributes are not specified for " + this.slug);
             return this.basketball.attributes;
         }
     }

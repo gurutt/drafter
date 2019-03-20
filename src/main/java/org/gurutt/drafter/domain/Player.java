@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Player {
     
     private String slug;
-    private int skill;
-    private int physics;
+    private double skill;
+    private double physics;
     private String name;
 }

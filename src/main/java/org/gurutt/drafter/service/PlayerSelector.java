@@ -28,7 +28,7 @@ public class PlayerSelector {
     public Map<String, LineUp> select(GameInput gameInput) {
 
         List<Player> players = findPlayers(gameInput.getParticipants(), gameInput.getSportType());
-        return lineUpEngine.decide(players, gameInput.getAttributes());
+        return lineUpEngine.decide(players, gameInput.getAttributes(), gameInput.getTeamCount());
     }
 
     public List<Player> listPlayers(String sportType) {

@@ -9,14 +9,26 @@ import java.util.function.Function;
 @AllArgsConstructor
 public class DraftContext {
 
-    private Function<Player, Integer> attr;
-    private Integer maxDiff = 5;
+    protected static final int DEFAULT_MAX_DIFF = 5;
+    protected static final int DEFAULT_TEAM_COUNT = 2;
 
-    private DraftContext(Function<Player, Integer> attr) {
+    private Function<Player, Double> attr;
+    private Integer maxDiff = DEFAULT_MAX_DIFF;
+    private Integer teamCount = DEFAULT_TEAM_COUNT;
+
+    private DraftContext(Function<Player, Double> attr) {
         this.attr = attr;
     }
 
-    public static DraftContext of(Function<Player, Integer> attr) {
+    public static DraftContext of(Function<Player, Double> attr) {
         return new DraftContext(attr);
+    }
+
+    public static DraftContext of(Function<Player, Double> attr, Integer teamCount) {
+        if (teamCount == null) {
+            return new DraftContext(attr, DEFAULT_MAX_DIFF, DEFAULT_TEAM_COUNT);
+        } else {
+            return new DraftContext(attr, DEFAULT_MAX_DIFF, teamCount);
+        }
     }
 }
