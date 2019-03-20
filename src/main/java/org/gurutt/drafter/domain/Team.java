@@ -27,10 +27,10 @@ public class Team {
     @Override
     public String toString() {
         return "Team{" +
-                //"skills=" + String.join(",", players.map(Player::getSkill).toString()) +
+                "skills=" + String.join(",", players.map(Player::getSkill).toString()) +
                 "players=" + String.join(",", players.map(Player::getSlug)) +
-                //", overallSkill=" + overallSkill() +
-                //", overallPhysics=" + overallPhysics() +
+                ", overallSkill=" + overallSkill() +
+                ", overallPhysics=" + overallPhysics() +
                 '}';
     }
 }
