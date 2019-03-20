@@ -1,12 +1,13 @@
 package org.gurutt.drafter.service;
 
 import io.vavr.Tuple;
-import io.vavr.Tuple4;
+import io.vavr.Tuple5;
 import io.vavr.collection.List;
 import org.gurutt.drafter.domain.DraftContext;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -26,26 +27,34 @@ class SlotSwapDrafterTest {
 
     @ParameterizedTest(name = "{index} => Data=''{0}''")
     @MethodSource("buildTestCases")
-    void decideWithLowestDiffa(Tuple4 data) {
+    void decideWithLowestDiffa(Tuple5 data) {
         List<Player> players = players((List<String>) data._4);
 
-        LineUp lineUp = oneByOneDrafter.decide(players, DraftContext.of(Player::getSkill));
+        LineUp lineUp = oneByOneDrafter.decide(players, new DraftContext(Player::getSkill, 5, (Integer) data._5));
         assertEquals(data._1, skillDiff(lineUp));
-        assertEquals(data._2, lineUp.getWest().overallSkill());
-        assertEquals(data._3, lineUp.getEast().overallSkill());
+        assertEquals(data._2, lineUp.getTeams().get(0).overallSkill());
+        assertEquals(data._3, lineUp.getTeams().get(1).overallSkill());
     }
 
-    private static Stream<Tuple4> buildTestCases() {
+    private static Stream<Tuple5> buildTestCases() {
         return Stream.of(
-                Tuple.of(1, 28, 27, List.of(VALIK, IGOR, NIKITA, ROMA)),
-                Tuple.of(6, 25, 19, List.of(VALIK, VANYA, REUS, NIKITA)),
-                Tuple.of(6, 25, 19, List.of(VALIK, VANYA, REUS, NIKITA)),
-                Tuple.of(1, 60, 59, List.of(VALIK, VANYA, REUS, NIKITA, YURA, ROMA, KOLYA, DIMONR, ROST, IGOR)),
-                Tuple.of(1, 31, 30, List.of(VALIK, VANYA, REUS, NIKITA, YURA))
+                Tuple.of(1.0, 28.0, 27.0, List.of(VALIK, IGOR, NIKITA, ROMA), 2),
+                Tuple.of(6.0, 25.0, 19.0, List.of(VALIK, VANYA, REUS, NIKITA), 2),
+                Tuple.of(6.0, 25.0, 19.0, List.of(VALIK, VANYA, REUS, NIKITA), 2),
+                Tuple.of(1.0, 60.0, 59.0, List.of(VALIK, VANYA, REUS, NIKITA, YURA, ROMA, KOLYA, DIMONR, ROST, IGOR), 2),
+                Tuple.of(0.5, 30.5, 31.0, List.of(VALIK, VANYA, REUS, NIKITA, YURA), 2)
         );
     }
 
-    private int skillDiff(LineUp decide) {
-        return decide.getWest().overallSkill() - decide.getEast().overallSkill();
+    @Test
+    void testNTeams() {
+        List<Player> players = players(List.of(VALIK, VANYA, REUS, NIKITA, YURA, ROMA, KOLYA, DIMONR, ROST));
+        LineUp lineUp = oneByOneDrafter.decide(players, new DraftContext(Player::getSkill, 5, 3));
+
+        assertEquals(1, skillDiff(lineUp));
+    }
+
+    private double skillDiff(LineUp lineUp) {
+        return Math.abs(lineUp.getTeams().get(0).overallSkill() - lineUp.getTeams().get(lineUp.getTeams().size() - 1).overallSkill());
     }
 }

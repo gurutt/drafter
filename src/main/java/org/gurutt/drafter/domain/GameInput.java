@@ -11,4 +11,5 @@ public class GameInput {
     private final String sportType;
     private final List<String> participants;
     private final List<String> attributes;
+    private final Integer teamCount;
 }

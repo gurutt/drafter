@@ -1,10 +1,10 @@
 package org.gurutt.drafter.domain;
 
+import io.vavr.collection.List;
 import lombok.Data;
 
 
 @Data
 public class LineUp {
-    private Team west;
-    private Team east;
+    private List<Team> teams;
 }

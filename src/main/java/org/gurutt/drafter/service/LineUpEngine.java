@@ -19,8 +19,8 @@ public class LineUpEngine {
     public static final String SKILL = "Skill";
     public static final String STAMINA = "Stamina";
 
-    private static final Function<Player, Integer> GET_SKILL = Player::getSkill;
-    private static final Function<Player, Integer> GET_STAMINA = Player::getPhysics;
+    private static final Function<Player, Double> GET_SKILL = Player::getSkill;
+    private static final Function<Player, Double> GET_STAMINA = Player::getPhysics;
     private static final Map<String, Function> ATTRIBUTES = HashMap.of(
             SKILL, GET_SKILL,
             STAMINA, GET_STAMINA);
@@ -32,11 +32,11 @@ public class LineUpEngine {
         this.drafter = drafter;
     }
 
-    Map<String, LineUp> decide(List<Player> players, List<String> params) {
+    Map<String, LineUp> decide(List<Player> players, List<String> params, Integer teamCount) {
         if (params.isEmpty()) {
-            return HashMap.of(SKILL, drafter.decide(players, DraftContext.of(GET_SKILL)));
+            return HashMap.of(SKILL, drafter.decide(players, DraftContext.of(GET_SKILL, teamCount)));
         }
         return params.map(key -> new Tuple2<>(key,
-                drafter.decide(players, DraftContext.of(ATTRIBUTES.get(key).get())))).collect(LinkedHashMap.collector());
+                drafter.decide(players, DraftContext.of(ATTRIBUTES.get(key).get(), teamCount)))).collect(LinkedHashMap.collector());
     }
 }

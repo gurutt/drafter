@@ -30,14 +30,15 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
     protected static final String PRM_PLAYERS = "players";
     protected static final String PRM_SPORT_TYPE = "sportType";
     protected static final String PRM_ATTRIBUTE = "attribute";
-    private static String[] PARAM_NAMES = {PRM_PLAYERS, PRM_SPORT_TYPE, PRM_ATTRIBUTE};
+    private static final String PRM_TEAM_COUNT = "teamCount";
+    private static String[] PARAM_NAMES = {PRM_PLAYERS, PRM_SPORT_TYPE, PRM_ATTRIBUTE, PRM_TEAM_COUNT};
     private static final String BOLD = "*";
 
     private static final BiFunction<Team, String, String> fSkill =
-            (team, type) -> String.format(wrap("Total %s: ", BOLD), type) + team.overallSkill() + "\n";
+            (team, type) -> String.format(wrap("Total %s: ", BOLD), type) + String.format("%.2f", team.overallSkill()) + "\n";
 
     private static final BiFunction<Team, String, String> fStamina =
-            (team, type) -> String.format(wrap("Total %s: ", BOLD), type) + team.overallPhysics() + "\n";
+            (team, type) -> String.format(wrap("Total %s: ", BOLD), type) + String.format("%.2f", team.overallPhysics()) + "\n";
 
     private static final Map<String, BiFunction> DETAILS = HashMap.of(SKILL, fSkill, STAMINA, fStamina);
 
@@ -64,10 +65,17 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
     @Override
     public Map<String, LineUp> process(Message message, Map<String, Object> params) {
         List<String> participants = List.of(params.get(PRM_PLAYERS).get().toString().trim().split("\\s*,\\s*"));
-        String sportType = !params.get(PRM_SPORT_TYPE).isDefined() ? PlayerData.BASKETBALL : params.get(PRM_SPORT_TYPE).get().toString();
+
+        String sportType = !params.get(PRM_SPORT_TYPE).isDefined() ? PlayerData.BASKETBALL
+                : params.get(PRM_SPORT_TYPE).get().toString();
+
         List<String> attributes = !params.get(PRM_ATTRIBUTE).isDefined() ? List.empty() :
                 List.of(params.get(PRM_ATTRIBUTE).get().toString().trim().split("\\s*,\\s*"));
-        GameInput gameInput = GameInput.of(sportType, participants, attributes);
+
+        Integer teamCount = !params.get(PRM_TEAM_COUNT).isDefined() ? null
+                : Integer.valueOf(params.get(PRM_TEAM_COUNT).get().toString().trim());
+
+        GameInput gameInput = GameInput.of(sportType, participants, attributes, teamCount);
         return playerSelector.select(gameInput);
     }
 
@@ -85,7 +93,7 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
         StringBuilder builder = new StringBuilder();
         lines.forEach(l -> {
             builder.append(String.format(wrap("%s version", BOLD) + "\n", l._1));
-            builder.append(teams(List.of(l._2.getWest(), l._2.getEast()), l._1));
+            builder.append(teams(l._2.getTeams(), l._1));
             builder.append("\n\n");
         });
         return builder.toString();
