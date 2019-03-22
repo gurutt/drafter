@@ -1,6 +1,5 @@
 package org.gurutt.drafter.telegrambot;
 
-import io.vavr.collection.List;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.gurutt.drafter.telegrambot.processor.MessageProcessor;
