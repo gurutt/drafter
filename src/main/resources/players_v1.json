@@ -125,8 +125,8 @@
     },
     "football": {
       "attributes": {
-        "skill": 10,
-        "physics": 10
+        "skill": 8,
+        "physics": 9
       }
     },
     "name": "Ростик"
@@ -151,7 +151,7 @@
     "slug": "poboyko",
     "football": {
       "attributes": {
-        "skill": 9.75,
+        "skill": 10.5,
         "physics": 8
       }
     },
@@ -243,8 +243,8 @@
     "slug": "misha",
     "football": {
       "attributes": {
-        "skill": 9,
-        "physics": 9
+        "skill": 4,
+        "physics": 6
       }
     },
     "name": "Миша"
