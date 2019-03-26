@@ -28,6 +28,8 @@ public class PlayerData {
     private Football football;
 
     @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Football {
         private Attributes attributes;
     }
@@ -43,6 +45,10 @@ public class PlayerData {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Attributes {
+        public Attributes(double skill) {
+            this.skill = skill;
+        }
+
         // 1 - 20
         private double skill;
         // 1 - 12
@@ -64,4 +70,12 @@ public class PlayerData {
         }
     }
 
+
+    @Override
+    public String toString() {
+        return "PlayerData{" +
+                "slug='" + slug + '\'' +
+                ", football=" + football +
+                '}';
+    }
 }

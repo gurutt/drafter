@@ -67,7 +67,7 @@ class LineUpEngineTest {
         Player p7 = new Player("roma", 11, 7, null);
         Player p8 = new Player("vanya", 6, 8, null);
         Player p9 = new Player("rost", 8, 4, null);
-        Player p10 = new Player("valik", 18, 9, null);
+        Player p10 = new Player("valik", 100, 9, null);
         List<Player> of = List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 
         LineUp pick = lineUpEngine.decide(of, List.empty(), 2).get(SKILL).get();
