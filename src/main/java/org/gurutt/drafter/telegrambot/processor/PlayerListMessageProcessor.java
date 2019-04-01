@@ -42,6 +42,7 @@ public class PlayerListMessageProcessor implements MessageProcessor<String, List
     @Override
     public String response(List<Player> players) {
         return String.join("\n",
-                players.sortBy(Player::getName).map(player -> String.format("%s - %s (%s)", player.getName(), player.getSkill(), player.getSlug())));
+                players.sortBy(Player::getName).map(player -> String.format("%s - %s (%s)",
+                        player.getName(), String.format("%.2f", player.getSkill()), player.getSlug())));
     }
 }

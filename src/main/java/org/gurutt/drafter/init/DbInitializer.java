@@ -61,7 +61,7 @@ public class DbInitializer implements ApplicationRunner {
                     .filter(Files::isRegularFile)
                     .sorted()
                     .reverse()
-                    .take(3)
+                    .take(5)
                     .map(Path::toFile)
                     .map(readData())
                     .toList()

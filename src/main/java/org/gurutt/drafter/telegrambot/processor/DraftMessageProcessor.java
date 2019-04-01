@@ -8,7 +8,6 @@ import io.vavr.collection.Map;
 import org.gurutt.drafter.domain.GameInput;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
-import org.gurutt.drafter.domain.PlayerData;
 import org.gurutt.drafter.domain.Team;
 import org.gurutt.drafter.service.PlayerSelector;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,11 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.Arrays;
 import java.util.function.BiFunction;
 
 import static org.apache.commons.lang3.StringUtils.startsWith;
 import static org.apache.commons.lang3.StringUtils.wrap;
+import static org.gurutt.drafter.domain.PlayerData.BASKETBALL;
 import static org.gurutt.drafter.service.LineUpEngine.SKILL;
 import static org.gurutt.drafter.service.LineUpEngine.STAMINA;
 
@@ -41,6 +40,7 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
             (team, type) -> String.format(wrap("Total %s: ", BOLD), type) + String.format("%.2f", team.overallPhysics()) + "\n";
 
     private static final Map<String, BiFunction> DETAILS = HashMap.of(SKILL, fSkill, STAMINA, fStamina);
+    //private static final Map<String, Integer> PLAYERS_IN_TEAM = HashMap.of(FOOTBALL, 5, BASKETBALL, 5);
 
     private static final String DRAFT_CMD = "/draft";
 
@@ -66,7 +66,7 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
     public Map<String, LineUp> process(Message message, Map<String, Object> params) {
         List<String> participants = List.of(params.get(PRM_PLAYERS).get().toString().trim().split("\\s*,\\s*"));
 
-        String sportType = !params.get(PRM_SPORT_TYPE).isDefined() ? PlayerData.BASKETBALL
+        String sportType = !params.get(PRM_SPORT_TYPE).isDefined() ? BASKETBALL
                 : params.get(PRM_SPORT_TYPE).get().toString();
 
         List<String> attributes = !params.get(PRM_ATTRIBUTE).isDefined() ? List.empty() :
@@ -107,6 +107,11 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
             List<Player> woDummy = team.getPlayers().removeFirst(p -> p.getSlug().equals("dummy"));
             team.setPlayers(woDummy);
             builder.append(DETAILS.get(type).get().apply(team, type));
+            int playersCount = 5;
+            if (team.getPlayers().size() > playersCount) {
+                builder.append(String.format(wrap("Best %s: ", BOLD), playersCount) +
+                        String.format("%.2f", team.getPlayers().take(playersCount).map(Player::getSkill).sum().doubleValue()) + "\n");
+            }
             builder.append("\n");
         });
 

@@ -216,25 +216,5 @@
       }
     },
     "name": "Aндрюха"
-  },
-  {
-    "slug": "yegor",
-    "football": {
-      "attributes": {
-        "skill": 17,
-        "physics": 14
-      }
-    },
-    "name": "Егор"
-  },
-  {
-    "slug": "vladimir",
-    "football": {
-      "attributes": {
-        "skill": 10,
-        "physics": 10
-      }
-    },
-    "name": "Вова Шкварок"
   }
 ]

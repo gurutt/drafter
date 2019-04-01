@@ -1,0 +1,33 @@
+[
+  {
+    "slug": "yegor",
+    "football": {
+      "attributes": {
+        "skill": 17,
+        "physics": 14
+      }
+    },
+    "name": "Егор"
+  },
+  {
+    "slug": "maxim",
+    "football": {
+      "attributes": {
+        "skill": 10.33,
+        "physics": 10
+      }
+    },
+    "name": "Макс"
+  },
+  {
+    "slug": "igor-sahno",
+    "football": {
+      "attributes": {
+        "skill": 14,
+        "physics": 12
+      }
+    },
+    "name": "Игорь Сахно"
+  }
+
+]
