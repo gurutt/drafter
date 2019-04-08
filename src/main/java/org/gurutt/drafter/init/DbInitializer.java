@@ -12,6 +12,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +23,12 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Function;
+
+import static org.gurutt.drafter.domain.PlayerData.BASKETBALL;
+import static org.gurutt.drafter.domain.PlayerData.FOOTBALL;
 
 @Order(1)
 @Component
@@ -49,12 +54,15 @@ public class DbInitializer implements ApplicationRunner {
         if (mongo.count(new Query(), PlayerData.COLLECTION) != 0) {
             return;
         }
+        loadData("rates_football/", FOOTBALL);
+        loadData("rates_basketball/", BASKETBALL);
+    }
 
+    private void loadData(String dir, String sportType) throws URISyntaxException {
         Map<String, List<PlayerData>> grouped;
 
         try (java.util.stream.Stream<Path> paths = Files.walk(Paths.get(Objects.requireNonNull(getClass().getClassLoader()
-                .getResource("rates_football/")).toURI()))) {
-
+                .getResource(dir)).toURI()))) {
 
             Stream<Path> files = Stream.ofAll(paths);
             grouped = files
@@ -65,7 +73,8 @@ public class DbInitializer implements ApplicationRunner {
                     .map(Path::toFile)
                     .map(readData())
                     .toList()
-                    .flatMap(f -> f).removeAll(p -> p.getFootball() == null || p.getFootball().getAttributes() == null)
+                    .flatMap(f -> f)
+                    .sorted(Comparator.comparing(PlayerData::getSlug))
                     .groupBy(PlayerData::getSlug);
 
         } catch (IOException e) {
@@ -73,12 +82,33 @@ public class DbInitializer implements ApplicationRunner {
         }
 
         for (Tuple2<String, List<PlayerData>> tuple2 : grouped) {
-            PlayerData player = tuple2._2.get(0);
-            Double average = tuple2._2.map(p -> p.getFootball().getAttributes().getSkill()).average().get();
-            player.setFootball(new PlayerData.Football(new PlayerData.Attributes(average)));
-
+            PlayerData player = getPlayerToSave(tuple2, sportType);
             mongo.save(player);
         }
+    }
+
+    private PlayerData getPlayerToSave(Tuple2<String, List<PlayerData>> tuple2, String sportType) {
+
+        PlayerData player = tuple2._2.get(0);
+        PlayerData toUpdate = null;
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("slug").is(player.getSlug()));
+        PlayerData one = mongo.findOne(query, PlayerData.class);
+
+        if (one != null) {
+            toUpdate = one;
+        } else {
+            toUpdate = player;
+        }
+        if (sportType.equals(PlayerData.BASKETBALL)) {
+            Double average = tuple2._2.map(p -> p.getBasketball().getAttributes().getSkill()).average().get();
+            toUpdate.setBasketball(new PlayerData.Basketball(new PlayerData.Attributes(average)));
+        } else if (sportType.equals(FOOTBALL)) {
+            Double average = tuple2._2.map(p -> p.getFootball().getAttributes().getSkill()).average().get();
+            toUpdate.setFootball(new PlayerData.Football(new PlayerData.Attributes(average)));
+        }
+        return toUpdate;
     }
 
     private Function<File, List<PlayerData>> readData() {
