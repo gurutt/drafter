@@ -1,12 +1,6 @@
 [
   {
     "slug": "yura",
-    "basketball": {
-      "attributes": {
-        "skill": 14,
-        "physics": 10
-      }
-    },
     "football": {
       "attributes": {
         "skill": 18,
@@ -16,43 +10,7 @@
     "name": "Юра"
   },
   {
-    "slug": "dimonr",
-    "basketball": {
-      "attributes": {
-        "skill": 11,
-        "physics": 9
-      }
-    },
-    "name": "Димон Рощин"
-  },
-  {
-    "slug": "igor",
-    "basketball": {
-      "attributes": {
-        "skill": 16,
-        "physics": 9
-      }
-    },
-    "name": "Игорь"
-  },
-  {
-    "slug": "kolya",
-    "basketball": {
-      "attributes": {
-        "skill": 15,
-        "physics": 8
-      }
-    },
-    "name": "Коля"
-  },
-  {
     "slug": "reus",
-    "basketball": {
-      "attributes": {
-        "skill": 9,
-        "physics": 6
-      }
-    },
     "football": {
       "attributes": {
         "skill": 12,
@@ -63,12 +21,6 @@
   },
   {
     "slug": "nikita",
-    "basketball": {
-      "attributes": {
-        "skill": 12,
-        "physics": 8
-      }
-    },
     "football": {
       "attributes": {
         "skill": 11,
@@ -79,12 +31,6 @@
   },
   {
     "slug": "roma",
-    "basketball": {
-      "attributes": {
-        "skill": 11,
-        "physics": 7
-      }
-    },
     "football": {
       "attributes": {
         "skill": 9.25,
@@ -95,12 +41,6 @@
   },
   {
     "slug": "vanya",
-    "basketball": {
-      "attributes": {
-        "skill": 7,
-        "physics": 8
-      }
-    },
     "football": {
       "attributes": {
         "skill": 14.5,
@@ -108,32 +48,6 @@
       }
     },
     "name": "Ваня"
-  },
-  {
-    "slug": "rost",
-    "basketball": {
-      "attributes": {
-        "skill": 8,
-        "physics": 8
-      }
-    },
-    "name": "Ростик"
-  },
-  {
-    "slug": "valik",
-    "basketball": {
-      "attributes": {
-        "skill": 18,
-        "physics": 9
-      }
-    },
-    "football": {
-      "attributes": {
-        "skill": 11,
-        "physics": 11
-      }
-    },
-    "name": "Валик"
   },
   {
     "slug": "poboyko",

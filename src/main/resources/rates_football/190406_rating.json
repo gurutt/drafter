@@ -1,29 +1,80 @@
 [
   {
-    "slug": "dimonr",
+    "slug": "yura",
     "football": {
       "attributes": {
-        "skill": 12.5,
-        "physics": 11
+        "skill": 17.67,
+        "physics": 10
       }
     },
-    "name": "Димон Рощин"
+    "name": "Юра"
   },
   {
-    "slug": "reus",
+    "slug": "vladimir",
     "football": {
       "attributes": {
-        "skill": 12.25,
+        "skill": 14,
+        "physics": 10
+      }
+    },
+    "name": "Вова Шкварок"
+  },
+  {
+    "slug": "maxim",
+    "football": {
+      "attributes": {
+        "skill": 10.67,
+        "physics": 10
+      }
+    },
+    "name": "Макс"
+  },
+  {
+    "slug": "rost",
+    "football": {
+      "attributes": {
+        "skill": 9.33,
         "physics": 8
       }
     },
-    "name": "Ройс"
+    "name": "Ростик"
+  },
+  {
+    "slug": "serega",
+    "football": {
+      "attributes": {
+        "skill": 17,
+        "physics": 11
+      }
+    },
+    "name": "Серега"
+  },
+  {
+    "slug": "vanya",
+    "football": {
+      "attributes": {
+        "skill": 14.67,
+        "physics": 8
+      }
+    },
+    "name": "Ваня"
+  },
+  {
+    "slug": "poboyko",
+    "football": {
+      "attributes": {
+        "skill": 9.67,
+        "physics": 8
+      }
+    },
+
+    "name": "Дима П"
   },
   {
     "slug": "nikita",
     "football": {
       "attributes": {
-        "skill": 11.75,
+        "skill": 11,
         "physics": 12
       }
     },
@@ -33,48 +84,17 @@
     "slug": "roma",
     "football": {
       "attributes": {
-        "skill": 9.25,
-        "physics": 8
+        "skill": 10.33,
+        "physics": 9
       }
     },
     "name": "Рома"
   },
   {
-    "slug": "vanya",
-    "football": {
-      "attributes": {
-        "skill": 14.5,
-        "physics": 11
-      }
-    },
-    "name": "Ваня"
-  },
-  {
-    "slug": "rost",
-    "football": {
-      "attributes": {
-        "skill": 8.67,
-        "physics": 10
-      }
-    },
-    "name": "Ростик"
-  },
-  {
-    "slug": "poboyko",
-    "football": {
-      "attributes": {
-        "skill": 10,
-        "physics": 8
-      }
-    },
-
-    "name": "Дима П"
-  },
-  {
     "slug": "slava",
     "football": {
       "attributes": {
-        "skill": 13.5,
+        "skill": 13.67,
         "physics": 10
       }
     },
@@ -82,54 +102,34 @@
     "name": "Славик"
   },
   {
+    "slug": "andrey",
+    "football": {
+      "attributes": {
+        "skill": 16.33,
+        "physics": 12
+      }
+    },
+    "name": "Aндрюха"
+  },
+  {
+    "slug": "dimonr",
+    "football": {
+      "attributes": {
+        "skill": 12,
+        "physics": 11
+      }
+    },
+    "name": "Димон Рощин"
+  },
+  {
     "slug": "sbitnev",
     "football": {
       "attributes": {
-        "skill": 13,
+        "skill": 12.67,
         "physics": 10
       }
     },
     "name": "Артем"
-  },
-  {
-    "slug": "malina",
-    "football": {
-      "attributes": {
-        "skill": 10,
-        "physics": 10
-      }
-    },
-    "name": "Саша"
-  },
-  {
-    "slug": "jeka",
-    "football": {
-      "attributes": {
-        "skill": 9.5,
-        "physics": 5
-      }
-    },
-    "name": "Жека"
-  },
-  {
-    "slug": "serega",
-    "football": {
-      "attributes": {
-        "skill": 18,
-        "physics": 13
-      }
-    },
-    "name": "Серега"
-  },
-  {
-    "slug": "toha",
-    "football": {
-      "attributes": {
-        "skill": 10.5,
-        "physics": 11
-      }
-    },
-    "name": "Тоха"
   },
   {
     "slug": "serega-volk",
@@ -142,13 +142,13 @@
     "name": "Сергей Волков"
   },
   {
-    "slug": "misha",
+    "slug": "valik",
     "football": {
       "attributes": {
-        "skill": 4.33,
-        "physics": 7
+        "skill": 13,
+        "physics": 12
       }
     },
-    "name": "Миша"
+    "name": "Валик"
   }
 ]
