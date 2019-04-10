@@ -15,13 +15,13 @@ Building the teams can be triggered via Telegram Bot.
 
 ###### List Players
 
-`\players <sport type>`
+`/players <sport type>`
 
 Pulls available players for given sport.
 
 ###### Build teams
 
-`\draft <players> | <sport type> | <player attribute> | <teams count>`
+`/draft <players> | <sport type> | <player attribute> | <teams count>`
 
 Creates balanced based on provided params
 
