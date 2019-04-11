@@ -3,7 +3,6 @@ package org.gurutt.drafter.performance;
 import org.gurutt.drafter.domain.DraftContext;
 import org.gurutt.drafter.domain.Player;
 import org.gurutt.drafter.service.Drafter;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Format;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -15,7 +14,7 @@ public class PerformanceTest {
     @Benchmark
     @Fork(value = 1)
     @Warmup(iterations = 2)
-    @BenchmarkMode(Mode.Throughput)
+    @BenchmarkMode(Mode.AverageTime)
     public void draft(ExecutionPlan executionPlan) {
 
         Drafter drafter = executionPlan.drafter;

@@ -1,12 +1,11 @@
 package org.gurutt.drafter.service;
 
-//import io.vavr.collection.List;
 
-import io.vavr.collection.Queue;
 import org.gurutt.drafter.domain.DraftContext;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
 import org.gurutt.drafter.domain.Team;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +22,7 @@ import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
 
+@Component
 public class PartitionDrafter implements Drafter {
 
     private class Result {
@@ -176,8 +176,8 @@ public class PartitionDrafter implements Drafter {
         int avg = sum / players.length;
         int target = sum / teams;
 
-        int min = target - 5;
-        int max = target + 5;
+        int min = target - avg / 10;
+        int max = target + avg / 10;
 
         Map<Integer, Long> freq = Arrays.stream(players).boxed()
                 .collect(groupingBy(identity(), counting()));
@@ -237,8 +237,8 @@ public class PartitionDrafter implements Drafter {
     public LineUp decide(io.vavr.collection.List<Player> players, DraftContext draftContext) {
 
         Function<Player, Double> attr0 = draftContext.getAttr();
-        Function<Player, Double> attr = attr0.andThen(d -> (double)Math.round(d*100)/100);
-        double[] playersArray = players.map(attr).toJavaList().stream().mapToDouble(e -> Math.round(e*100)/100).toArray();
+        Function<Player, Double> attr = attr0.andThen(d -> (double) Math.round(d * 100));
+        double[] playersArray = players.map(attr).toJavaList().stream().mapToDouble(e -> e / 100).toArray();
 
         List<Result> results = doDraft(playersArray, draftContext.getTeamCount());
 
@@ -249,20 +249,20 @@ public class PartitionDrafter implements Drafter {
             List<Team> teams = new ArrayList<>();
             for (List<Integer> teamValues : result.values) {
                 List<Player> playerResult = new ArrayList<>();
-                Team team = new Team(io.vavr.collection.List.ofAll(playerResult));
+
                 for (Integer playerValue : teamValues) {
-                    Predicate<Player> reverseMapping = p -> attr.apply(p).equals(playerValue.doubleValue());
+                    Predicate<Player> reverseMapping = p -> attr.apply(p).intValue() == playerValue.intValue();
                     Player player = list.find(reverseMapping).get();
                     list = list.remove(player);
                     playerResult.add(player);
                 }
+                Team team = new Team(io.vavr.collection.List.ofAll(playerResult));
                 teams.add(team);
             }
             lineUp.setTeams(io.vavr.collection.List.ofAll(teams));
             lineUps.add(lineUp);
         }
-        System.out.println(lineUps);
 
-        return null;
+        return lineUps.get(0);
     }
 }
