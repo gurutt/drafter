@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "yegor",
+    "football": {
+      "attributes": {
+        "skill": 17,
+        "physics": 14
+      }
+    },
+    "name": "Егор"
+  },
+  {
+    "slug": "igor-sahno",
+    "football": {
+      "attributes": {
+        "skill": 14,
+        "physics": 12
+      }
+    },
+    "name": "Игорь Сахно"
+  },
+  {
+    "slug": "segeda",
+    "football": {
+      "attributes": {
+        "skill": 10,
+        "physics": 10
+      }
+    },
+    "name": "Артур Сегеда"
+  },
+  {
+    "slug": "segeda",
+    "football": {
+      "attributes": {
+        "skill": 10,
+        "physics": 10
+      }
+    },
+    "name": "Артур Сегеда"
+  },
+  {
+    "slug": "kuznetsov",
+    "football": {
+      "attributes": {
+        "skill": 11,
+        "physics": 10
+      }
+    },
+    "name": "Рома Кузнецов"
+  },
+  {
+    "slug": "makhno",
+    "football": {
+      "attributes": {
+        "skill": 11,
+        "physics": 10
+      }
+    },
+    "name": "Женя Махноносов"
+  }
+
+]

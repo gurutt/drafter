@@ -1,0 +1,144 @@
+[
+  {
+    "slug": "vladimir",
+    "football": {
+      "attributes": {
+        "skill": 11.5,
+        "physics": 10
+      }
+    },
+    "name": "Вова Шкварок"
+  },
+  {
+    "slug": "filya",
+    "football": {
+      "attributes": {
+        "skill": 16,
+        "physics": 10
+      }
+    },
+    "name": "Саша Фиалка"
+  },
+  {
+    "slug": "anton-slava",
+    "football": {
+      "attributes": {
+        "skill": 13,
+        "physics": 11
+      }
+    },
+    "name": "Антон от Славы"
+  },
+  {
+    "slug": "tos",
+    "football": {
+      "attributes": {
+        "skill": 16,
+        "physics": 12
+      }
+    },
+    "name": "Тос"
+  },
+  {
+    "slug": "jeka",
+    "football": {
+      "attributes": {
+        "skill": 9.5,
+        "physics": 5
+      }
+    },
+    "name": "Жека"
+  },
+  {
+    "slug": "misha",
+    "football": {
+      "attributes": {
+        "skill": 4.33,
+        "physics": 7
+      }
+    },
+    "name": "Миша"
+  },
+  {
+    "slug": "poboyko",
+    "football": {
+      "attributes": {
+        "skill": 9,
+        "physics": 8
+      }
+    },
+
+    "name": "Дима П"
+  },
+  {
+    "slug": "toha",
+    "football": {
+      "attributes": {
+        "skill": 10,
+        "physics": 11
+      }
+    },
+    "name": "Тоха"
+  },
+  {
+    "slug": "nikita",
+    "football": {
+      "attributes": {
+        "skill": 11.5,
+        "physics": 12
+      }
+    },
+    "name": "Никита"
+  },
+  {
+    "slug": "roma",
+    "football": {
+      "attributes": {
+        "skill": 9.5,
+        "physics": 9
+      }
+    },
+    "name": "Рома"
+  },
+  {
+    "slug": "slava",
+    "football": {
+      "attributes": {
+        "skill": 12.5,
+        "physics": 10
+      }
+    },
+
+    "name": "Славик"
+  },
+  {
+    "slug": "andrey",
+    "football": {
+      "attributes": {
+        "skill": 16.5,
+        "physics": 12
+      }
+    },
+    "name": "Aндрюха"
+  },
+  {
+    "slug": "dimonr",
+    "football": {
+      "attributes": {
+        "skill": 11.5,
+        "physics": 11
+      }
+    },
+    "name": "Димон Рощин"
+  },
+  {
+    "slug": "sbitnev",
+    "football": {
+      "attributes": {
+        "skill": 12.5,
+        "physics": 10
+      }
+    },
+    "name": "Артем"
+  }
+]
