@@ -119,6 +119,7 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
     }
 
     private String roster(Team team) {
-        return wrap("Team: ", BOLD) + String.join(", ", team.getPlayers().map(Player::getName)) + "\n";
+        return wrap("Team: ", BOLD) + String.join(", ", team.getPlayers()
+                .sortBy(Player::getSkill).reverse().map(Player::getName)) + "\n";
     }
 }
