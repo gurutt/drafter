@@ -40,7 +40,6 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
             (team, type) -> String.format(wrap("Total %s: ", BOLD), type) + String.format("%.2f", team.overallPhysics()) + "\n";
 
     private static final Map<String, BiFunction> DETAILS = HashMap.of(SKILL, fSkill, STAMINA, fStamina);
-    //private static final Map<String, Integer> PLAYERS_IN_TEAM = HashMap.of(FOOTBALL, 5, BASKETBALL, 5);
 
     private static final String DRAFT_CMD = "/draft";
 
@@ -106,7 +105,8 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
             builder.append(roster(team));
             List<Player> woDummy = team.getPlayers().removeFirst(p -> p.getSlug().equals("dummy"));
             team.setPlayers(woDummy);
-            builder.append(DETAILS.get(type).get().apply(team, type));
+            //TODO make it generic
+            builder.append(DETAILS.get(SKILL).get().apply(team, "skill"));
             int playersCount = 5;
             if (team.getPlayers().size() > playersCount) {
                 builder.append(String.format(wrap("Best %s: ", BOLD), playersCount) +

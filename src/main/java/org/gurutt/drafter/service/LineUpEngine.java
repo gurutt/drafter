@@ -11,6 +11,7 @@ import org.gurutt.drafter.domain.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.function.Function;
 
 @Component
@@ -25,18 +26,21 @@ public class LineUpEngine {
             SKILL, GET_SKILL,
             STAMINA, GET_STAMINA);
 
-    private final Drafter drafter;
+    @Resource(name = "drafters")
+    private java.util.Map<String, Drafter> drafters;
 
-    @Autowired
-    public LineUpEngine(Drafter drafter) {
-        this.drafter = drafter;
+    public LineUpEngine(java.util.Map<String, Drafter> drafters) {
+        this.drafters = drafters;
     }
 
     Map<String, LineUp> decide(List<Player> players, List<String> params, Integer teamCount) {
         if (params.isEmpty()) {
-            return HashMap.of(SKILL, drafter.decide(players, DraftContext.of(GET_SKILL, teamCount)));
+            HashMap<String, Drafter> algos = HashMap.ofAll(drafters);
+            return algos.map(d -> new Tuple2<>(d._1, d._2.decide(players, DraftContext.of(GET_SKILL, teamCount))))
+                    .collect(LinkedHashMap.collector());
         }
-        return params.map(key -> new Tuple2<>(key,
-                drafter.decide(players, DraftContext.of(ATTRIBUTES.get(key).get(), teamCount)))).collect(LinkedHashMap.collector());
+        return HashMap.empty();
+        /*return params.map(key -> new Tuple2<>(key,
+                drafter.decide(players, DraftContext.of(ATTRIBUTES.get(key).get(), teamCount)))).collect(LinkedHashMap.collector());*/
     }
 }

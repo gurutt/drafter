@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "rost",
+    "football": {
+      "attributes": {
+        "skill": 9,
+        "physics": 8
+      }
+    },
+    "name": "Ростик"
+  },
+  {
+    "slug": "serega",
+    "football": {
+      "attributes": {
+        "skill": 17,
+        "physics": 11
+      }
+    },
+    "name": "Серега"
+  },
+  {
+    "slug": "vanya",
+    "football": {
+      "attributes": {
+        "skill": 14,
+        "physics": 8
+      }
+    },
+    "name": "Ваня"
+  },
+  {
+    "slug": "nikita",
+    "football": {
+      "attributes": {
+        "skill": 11.5,
+        "physics": 12
+      }
+    },
+    "name": "Никита"
+  },
+  {
+    "slug": "roma",
+    "football": {
+      "attributes": {
+        "skill": 10.5,
+        "physics": 9
+      }
+    },
+    "name": "Рома"
+  },
+  {
+    "slug": "dimonr",
+    "football": {
+      "attributes": {
+        "skill": 11,
+        "physics": 11
+      }
+    },
+    "name": "Димон Рощин"
+  },
+  {
+    "slug": "sbitnev",
+    "football": {
+      "attributes": {
+        "skill": 13,
+        "physics": 10
+      }
+    },
+    "name": "Артем"
+  },
+  {
+    "slug": "valik",
+    "football": {
+      "attributes": {
+        "skill": 12,
+        "physics": 12
+      }
+    },
+    "name": "Валик"
+  },
+  {
+    "slug": "igor-sahno",
+    "football": {
+      "attributes": {
+        "skill": 14.5,
+        "physics": 12
+      }
+    },
+    "name": "Игорь Сахно"
+  },
+  {
+    "slug": "malina",
+    "football": {
+      "attributes": {
+        "skill": 10.5,
+        "physics": 12
+      }
+    },
+    "name": "Саша"
+  }
+]

@@ -1,5 +1,6 @@
 package org.gurutt.drafter.service;
 
+import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import org.gurutt.drafter.domain.LineUp;
@@ -7,8 +8,6 @@ import org.gurutt.drafter.domain.Player;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.gurutt.drafter.service.LineUpEngine.SKILL;
-import static org.gurutt.drafter.service.LineUpEngine.STAMINA;
 import static org.gurutt.drafter.service.TestPlayerData.IGOR;
 import static org.gurutt.drafter.service.TestPlayerData.NIKITA;
 import static org.gurutt.drafter.service.TestPlayerData.ROMA;
@@ -20,7 +19,9 @@ import static org.junit.Assert.assertTrue;
 
 class LineUpEngineTest {
 
-    private LineUpEngine lineUpEngine = new LineUpEngine(new SlotSwapDrafter());
+    private static final String algorithm = "slot-swap";
+    private Map<String, Drafter> drafters = HashMap.of(algorithm, new SlotSwapDrafter());
+    private LineUpEngine lineUpEngine = new LineUpEngine(drafters.toJavaMap());;
 
     @BeforeAll
     static void init() {
@@ -37,7 +38,7 @@ class LineUpEngineTest {
         Map<String, LineUp> rosters = lineUpEngine.decide(players, List.empty(), 2);
 
         // then
-        assertTrue(rosters.containsKey(SKILL));
+        assertTrue(rosters.containsKey(algorithm));
     }
 
     @Test
@@ -47,12 +48,11 @@ class LineUpEngineTest {
         List<Player> players = players(YURA, ROMA, IGOR, NIKITA);
 
         // when
-        Map<String, LineUp> rosters = lineUpEngine.decide(players, List.of(SKILL, STAMINA), 2);
+        Map<String, LineUp> rosters = lineUpEngine.decide(players, List.empty(), 2);
 
         // then
-        assertTrue(rosters.containsKey(SKILL));
-        assertTrue(rosters.containsKey(STAMINA));
-        assertEquals(2, rosters.size());
+        assertTrue(rosters.containsKey(algorithm));
+        assertEquals(1, rosters.size());
     }
 
     @Test
@@ -70,7 +70,7 @@ class LineUpEngineTest {
         Player p10 = new Player("valik", 18, 9, null);
         List<Player> of = List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 
-        LineUp pick = lineUpEngine.decide(of, List.empty(), 2).get(SKILL).get();
+        LineUp pick = lineUpEngine.decide(of, List.empty(), 2).get(algorithm).get();
     }
 
 

@@ -33,7 +33,6 @@ import static org.gurutt.drafter.domain.PlayerData.FOOTBALL;
 @Order(1)
 @Component
 public class DbInitializer implements ApplicationRunner {
-    private static final String INIT_DATA_FILE = "players_v1.json";
 
     private final MongoTemplate mongo;
     private final ObjectMapper mapper;
@@ -69,7 +68,7 @@ public class DbInitializer implements ApplicationRunner {
                     .filter(Files::isRegularFile)
                     .sorted()
                     .reverse()
-                    .take(5)
+                    .take(10)
                     .map(Path::toFile)
                     .map(readData())
                     .toList()

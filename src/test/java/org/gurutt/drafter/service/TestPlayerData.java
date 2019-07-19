@@ -23,6 +23,17 @@ public class TestPlayerData {
     public static final String DIMONR = "dimonr";
     public static final String KOLYA = "kolya";
     public static final String ROST = "rost";
+    public static final String SEGEDA = "segeda";
+    public static final String ANDREY = "andrey";
+    public static final String POBOYKO = "poboyko";
+    public static final String SLAVA = "slava";
+    public static final String VLADIMIR = "vladimir";
+    public static final String JEKA = "jeka";
+    public static final String TOHA = "toha";
+    public static final String KUZNETSOV = "kuznetsov";
+    public static final String IGOR_SAHNO = "igor-sahno";
+    public static final String ANTON_SLAVA = "anton-slava";
+    public static final String MAKHNO = "makhno";
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static List<Player> players;

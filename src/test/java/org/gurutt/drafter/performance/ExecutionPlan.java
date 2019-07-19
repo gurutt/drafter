@@ -24,6 +24,7 @@ public class ExecutionPlan {
 
         players = TestPlayerData.load();
 
-        players = players(VALIK, VANYA, REUS, NIKITA, YURA, ROMA, KOLYA, DIMONR, ROST, IGOR);
+        players = players(POBOYKO, SLAVA, VLADIMIR, ANDREY, ROMA,
+                VANYA, ROST, DIMONR, JEKA, TOHA, KUZNETSOV, IGOR_SAHNO, ANTON_SLAVA, SEGEDA, MAKHNO);
     }
 }

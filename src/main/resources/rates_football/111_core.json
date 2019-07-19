@@ -20,14 +20,44 @@
     "name": "Макс"
   },
   {
-    "slug": "igor-sahno",
+    "slug": "kent-artema",
     "football": {
       "attributes": {
-        "skill": 14,
-        "physics": 12
+        "skill": 15,
+        "physics": 10
       }
     },
-    "name": "Игорь Сахно"
+    "name": "Кент Артема"
+  },
+  {
+    "slug": "makhno",
+    "football": {
+      "attributes": {
+        "skill": 10,
+        "physics": 10
+      }
+    },
+    "name": "Женя Махноносов"
+  },
+  {
+    "slug": "serega-n",
+    "football": {
+      "attributes": {
+        "skill": 9.77,
+        "physics": 10
+      }
+    },
+    "name": "Серега Н"
+  },
+  {
+    "slug": "segeda",
+    "football": {
+      "attributes": {
+        "skill": 10,
+        "physics": 10
+      }
+    },
+    "name": "Артур Сегеда"
   }
 
 ]
