@@ -26,7 +26,7 @@ public class SlotSwapDrafter implements Drafter {
 
         if (roster.length() % 2 != 0 && teamCount == 2) {
             double apply = attr.apply(roster.last());
-            roster = roster.append(new Player("dummy", apply/2, apply/2, "-"));
+            roster = roster.append(new Player("dummy", apply/2, apply/2, "-", List.empty()));
         }
 
         List<Player> finalRoster = roster;

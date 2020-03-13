@@ -6,6 +6,7 @@ import io.vavr.Tuple2;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import io.vavr.collection.Stream;
+import org.gurutt.drafter.domain.Player;
 import org.gurutt.drafter.domain.PlayerData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -27,8 +28,7 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Function;
 
-import static org.gurutt.drafter.domain.PlayerData.BASKETBALL;
-import static org.gurutt.drafter.domain.PlayerData.FOOTBALL;
+import static org.gurutt.drafter.domain.PlayerData.*;
 
 @Order(1)
 @Component
@@ -50,11 +50,13 @@ public class DbInitializer implements ApplicationRunner {
     }
 
     private void loadMainConfiguration() throws URISyntaxException {
+        mongo.dropCollection(PlayerData.class);
         if (mongo.count(new Query(), PlayerData.COLLECTION) != 0) {
             return;
         }
-        loadData("rates_football/", FOOTBALL);
-        loadData("rates_basketball/", BASKETBALL);
+        //loadData("rates_football/", FOOTBALL);
+        //loadData("rates_basketball/", BASKETBALL);
+        loadData("rates_dota/", DOTA);
     }
 
     private void loadData(String dir, String sportType) throws URISyntaxException {
@@ -100,12 +102,22 @@ public class DbInitializer implements ApplicationRunner {
         } else {
             toUpdate = player;
         }
-        if (sportType.equals(PlayerData.BASKETBALL)) {
-            Double average = tuple2._2.map(p -> p.getBasketball().getAttributes().getSkill()).average().get();
-            toUpdate.setBasketball(new PlayerData.Basketball(new PlayerData.Attributes(average)));
-        } else if (sportType.equals(FOOTBALL)) {
-            Double average = tuple2._2.map(p -> p.getFootball().getAttributes().getSkill()).average().get();
-            toUpdate.setFootball(new PlayerData.Football(new PlayerData.Attributes(average)));
+        switch (sportType) {
+            case PlayerData.BASKETBALL: {
+                Double average = tuple2._2.map(p -> p.getBasketball().getAttributes().getSkill()).average().get();
+                toUpdate.setBasketball(new Basketball(new Attributes(average)));
+                break;
+            }
+            case FOOTBALL: {
+                Double average = tuple2._2.map(p -> p.getFootball().getAttributes().getSkill()).average().get();
+                toUpdate.setFootball(new Football(new Attributes(average)));
+                break;
+            }
+            case DOTA: {
+                Double average = tuple2._2.map(p -> p.getDota().getAttributes().getSkill()).average().get();
+                //toUpdate.setDota(new Dota(new Attributes(average), ));
+                break;
+            }
         }
         return toUpdate;
     }

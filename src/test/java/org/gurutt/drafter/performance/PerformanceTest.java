@@ -18,7 +18,7 @@ public class PerformanceTest {
     public void draft(ExecutionPlan executionPlan) {
 
         Drafter drafter = executionPlan.drafter;
-        drafter.decide(executionPlan.players, DraftContext.of(Player::getSkill, 3));
+        drafter.decide(executionPlan.players, DraftContext.of(Player::getSkill, 3, ""));
 
     }
 }

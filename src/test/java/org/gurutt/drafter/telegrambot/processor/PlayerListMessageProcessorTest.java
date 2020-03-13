@@ -56,7 +56,7 @@ class PlayerListMessageProcessorTest {
         PlayerData playerData = new PlayerData();
         playerData.setSlug(slug);
         playerData.setName("name");
-        playerData.setBasketball(new PlayerData.Basketball(new PlayerData.Attributes(1,2)));
+        playerData.setBasketball(new PlayerData.Basketball(new PlayerData.Attributes(1)));
         return playerData;
     }
 }

@@ -1,17 +1,10 @@
 package org.gurutt.drafter.service;
 
 
-import org.gurutt.drafter.domain.DraftContext;
-import org.gurutt.drafter.domain.LineUp;
-import org.gurutt.drafter.domain.Player;
-import org.gurutt.drafter.domain.Team;
+import org.gurutt.drafter.domain.*;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -218,19 +211,8 @@ public class PartitionDrafter implements Drafter {
             results.addAll(overflow);
         }
 
-        int diff = results.stream()
-                .map(Result::diff)
-                .reduce(Math::min)
-                .orElseThrow(RuntimeException::new);
 
-        if (diff == Integer.MAX_VALUE) {
-            throw new IllegalArgumentException("Wrong members");
-        } else {
-            return results.stream()
-                    .filter(result -> result.diff() == diff)
-                    .distinct()
-                    .collect(Collectors.toList());
-        }
+        return results;
     }
 
     @Override
@@ -241,6 +223,8 @@ public class PartitionDrafter implements Drafter {
         double[] playersArray = players.map(attr).toJavaList().stream().mapToDouble(e -> e / 100).toArray();
 
         List<Result> results = doDraft(playersArray, draftContext.getTeamCount());
+
+        results = postShuffle(draftContext.getSportType(), results);
 
         List<LineUp> lineUps = new ArrayList<>();
         for (Result result : results) {
@@ -257,12 +241,41 @@ public class PartitionDrafter implements Drafter {
                     playerResult.add(player);
                 }
                 Team team = new Team(io.vavr.collection.List.ofAll(playerResult));
+
                 teams.add(team);
             }
             lineUp.setTeams(io.vavr.collection.List.ofAll(teams));
             lineUps.add(lineUp);
-        }
 
+        }
+        if (PlayerData.DOTA.equals(draftContext.getSportType())) {
+           return lineUps.stream()
+                    .peek(l -> System.out.println("considering line up " + l))
+                    .filter(l -> l.getTeams().forAll(t -> t.validateRoles(draftContext.getSportType())))
+                    .findFirst().orElseThrow(() -> new IllegalStateException("No line up found"));
+        }
         return lineUps.get(0);
+    }
+
+
+    private List<Result> postShuffle(String sportType, List<Result> results) {
+        if (sportType.equals(PlayerData.DOTA)) {
+            results.sort(Comparator.comparing(Result::diff));
+            return results;
+        } else {
+            int diff = results.stream()
+                    .map(Result::diff)
+                    .reduce(Math::min)
+                    .orElseThrow(RuntimeException::new);
+
+            if (diff == Integer.MAX_VALUE) {
+                throw new IllegalArgumentException("Wrong members");
+            } else {
+                return results.stream()
+                        .filter(result -> result.diff() == diff)
+                        .distinct()
+                        .collect(Collectors.toList());
+            }
+        }
     }
 }

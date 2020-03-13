@@ -8,7 +8,6 @@ import io.vavr.collection.Map;
 import org.gurutt.drafter.domain.DraftContext;
 import org.gurutt.drafter.domain.LineUp;
 import org.gurutt.drafter.domain.Player;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -33,14 +32,10 @@ public class LineUpEngine {
         this.drafters = drafters;
     }
 
-    Map<String, LineUp> decide(List<Player> players, List<String> params, Integer teamCount) {
-        if (params.isEmpty()) {
-            HashMap<String, Drafter> algos = HashMap.ofAll(drafters);
-            return algos.map(d -> new Tuple2<>(d._1, d._2.decide(players, DraftContext.of(GET_SKILL, teamCount))))
-                    .collect(LinkedHashMap.collector());
-        }
-        return HashMap.empty();
-        /*return params.map(key -> new Tuple2<>(key,
-                drafter.decide(players, DraftContext.of(ATTRIBUTES.get(key).get(), teamCount)))).collect(LinkedHashMap.collector());*/
+    Map<String, LineUp> decide(List<Player> players, String sportType, Integer teamCount) {
+
+        HashMap<String, Drafter> algos = HashMap.ofAll(drafters);
+        return algos.map(d -> new Tuple2<>(d._1, d._2.decide(players, DraftContext.of(GET_SKILL, teamCount, sportType))))
+                .collect(LinkedHashMap.collector());
     }
 }

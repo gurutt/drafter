@@ -28,7 +28,7 @@ public class PlayerSelector {
     public Map<String, LineUp> select(GameInput gameInput) {
 
         List<Player> players = findPlayers(gameInput.getParticipants(), gameInput.getSportType());
-        return lineUpEngine.decide(players, gameInput.getAttributes(), gameInput.getTeamCount());
+        return lineUpEngine.decide(players, gameInput.getSportType(), gameInput.getTeamCount());
     }
 
     public List<Player> listPlayers(String sportType) {
@@ -37,6 +37,9 @@ public class PlayerSelector {
             query.addCriteria(Criteria.where(PlayerData.FOOTBALL).exists(true));
         } else if (PlayerData.BASKETBALL.equalsIgnoreCase(sportType)) {
             query.addCriteria(Criteria.where(PlayerData.BASKETBALL).exists(true));
+        }
+        else if (PlayerData.DOTA.equalsIgnoreCase(sportType)) {
+            query.addCriteria(Criteria.where(PlayerData.DOTA).exists(true));
         }
         return List.ofAll(mongoTemplate.find(query, PlayerData.class)).map(p -> p.toPlayer(sportType));
     }

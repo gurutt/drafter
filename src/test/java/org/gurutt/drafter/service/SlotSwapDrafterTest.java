@@ -30,7 +30,7 @@ class SlotSwapDrafterTest {
     void decideWithLowestDiffa(Tuple5 data) {
         List<Player> players = players((List<String>) data._4);
 
-        LineUp lineUp = oneByOneDrafter.decide(players, new DraftContext(Player::getSkill, 5, (Integer) data._5));
+        LineUp lineUp = oneByOneDrafter.decide(players, new DraftContext(Player::getSkill, 5, (Integer) data._5, ""));
         assertEquals(data._1, skillDiff(lineUp));
         assertEquals(data._2, lineUp.getTeams().get(0).overallSkill());
         assertEquals(data._3, lineUp.getTeams().get(1).overallSkill());
@@ -49,7 +49,7 @@ class SlotSwapDrafterTest {
     @Test
     void testNTeams() {
         List<Player> players = players(List.of(VALIK, VANYA, REUS, NIKITA, YURA, ROMA, KOLYA, DIMONR, ROST));
-        LineUp lineUp = oneByOneDrafter.decide(players, new DraftContext(Player::getSkill, 5, 3));
+        LineUp lineUp = oneByOneDrafter.decide(players, new DraftContext(Player::getSkill, 5, 3, ""));
 
         assertEquals(1, skillDiff(lineUp));
     }

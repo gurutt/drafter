@@ -32,7 +32,7 @@ public class DrafterApplication {
     public Map<String, Drafter> drafters() {
         Map<String, Drafter> drafters = new HashMap<>();
         //drafters.put("slot-swap", new SlotSwapDrafter());
-        drafters.put("brute-force", new PartitionDrafter());
+        drafters.put("partition", new PartitionDrafter());
         return drafters;
     }
 

@@ -15,6 +15,7 @@ public class DraftContext {
     private Function<Player, Double> attr;
     private Integer maxDiff = DEFAULT_MAX_DIFF;
     private Integer teamCount = DEFAULT_TEAM_COUNT;
+    private String sportType;
 
     private DraftContext(Function<Player, Double> attr) {
         this.attr = attr;
@@ -24,11 +25,11 @@ public class DraftContext {
         return new DraftContext(attr);
     }
 
-    public static DraftContext of(Function<Player, Double> attr, Integer teamCount) {
+    public static DraftContext of(Function<Player, Double> attr, Integer teamCount, String sportType) {
         if (teamCount == null) {
-            return new DraftContext(attr, DEFAULT_MAX_DIFF, DEFAULT_TEAM_COUNT);
+            return new DraftContext(attr, DEFAULT_MAX_DIFF, DEFAULT_TEAM_COUNT, sportType.trim());
         } else {
-            return new DraftContext(attr, DEFAULT_MAX_DIFF, teamCount);
+            return new DraftContext(attr, DEFAULT_MAX_DIFF, teamCount, sportType.trim());
         }
     }
 }

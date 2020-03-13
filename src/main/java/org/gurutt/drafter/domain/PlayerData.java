@@ -9,6 +9,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +20,7 @@ public class PlayerData {
     public static final String COLLECTION = "players";
     public static final String FOOTBALL = "football";
     public static final String BASKETBALL = "basketball";
+    public static final String DOTA = "dota";
 
     @Id
     private String id;
@@ -26,6 +29,7 @@ public class PlayerData {
     private String name;
     private Basketball basketball;
     private Football football;
+    private Dota dota;
 
     @Data
     @AllArgsConstructor
@@ -44,7 +48,19 @@ public class PlayerData {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
+    public static class Dota {
+        private Attributes attributes;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Attributes {
+        public Attributes(double skill, double physics) {
+            this.skill = skill;
+            this.physics = physics;
+        }
+
         public Attributes(double skill) {
             this.skill = skill;
         }
@@ -53,11 +69,13 @@ public class PlayerData {
         private double skill;
         // 1 - 12
         private double physics;
+
+        private List<String> roles;
     }
 
     public Player toPlayer(String type) {
         Attributes attributes = resolveAttributes(type);
-        return new Player(slug, attributes.skill, attributes.physics, name);
+        return new Player(slug, attributes.skill, attributes.physics, name, io.vavr.collection.List.ofAll(attributes.roles));
     }
 
     private Attributes resolveAttributes(String type) {
@@ -65,8 +83,9 @@ public class PlayerData {
             if (this.football == null) throw new IllegalArgumentException("Attributes are not specified for " + this.slug);
             return this.football.attributes;
         } else {
-            if (this.basketball == null) throw new IllegalArgumentException("Attributes are not specified for " + this.slug);
-            return this.basketball.attributes;
+            // TODO change this
+            if (this.dota == null) throw new IllegalArgumentException("Attributes are not specified for " + this.slug);
+            return this.dota.attributes;
         }
     }
 

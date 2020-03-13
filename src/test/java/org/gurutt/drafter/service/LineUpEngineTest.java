@@ -35,7 +35,7 @@ class LineUpEngineTest {
         List<Player> players = players(YURA, ROMA, IGOR, NIKITA);
 
         // when
-        Map<String, LineUp> rosters = lineUpEngine.decide(players, List.empty(), 2);
+        Map<String, LineUp> rosters = lineUpEngine.decide(players, "", 2);
 
         // then
         assertTrue(rosters.containsKey(algorithm));
@@ -48,7 +48,7 @@ class LineUpEngineTest {
         List<Player> players = players(YURA, ROMA, IGOR, NIKITA);
 
         // when
-        Map<String, LineUp> rosters = lineUpEngine.decide(players, List.empty(), 2);
+        Map<String, LineUp> rosters = lineUpEngine.decide(players, "", 2);
 
         // then
         assertTrue(rosters.containsKey(algorithm));
@@ -70,7 +70,7 @@ class LineUpEngineTest {
         Player p10 = new Player("valik", 18, 9, null);
         List<Player> of = List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
 
-        LineUp pick = lineUpEngine.decide(of, List.empty(), 2).get(algorithm).get();
+        LineUp pick = lineUpEngine.decide(of, "", 2).get(algorithm).get();
     }
 
 

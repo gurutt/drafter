@@ -91,7 +91,7 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
     private String success(Map<String, LineUp> lines) {
         StringBuilder builder = new StringBuilder();
         lines.forEach(l -> {
-            builder.append(String.format(wrap("%s version", BOLD) + "\n", l._1));
+            //builder.append(String.format(wrap("%s version", BOLD) + "\n", l._1));
             builder.append(teams(l._2.getTeams(), l._1));
             builder.append("\n\n");
         });
@@ -119,7 +119,9 @@ public class DraftMessageProcessor implements MessageProcessor<Map<String, Objec
     }
 
     private String roster(Team team) {
-        return wrap("Team: ", BOLD) + String.join(", ", team.getPlayers()
-                .sortBy(Player::getSkill).reverse().map(Player::getName)) + "\n";
+        return wrap("Team: ", BOLD) + String.join(", ",
+                team.getPlayers().sortBy(Player::getSuggestedRole)
+                        //.sortBy(Player::getSkill).reverse()
+                        .map(player -> player.getName() + " - " + player.getSuggestedRole())) + "\n";
     }
 }
