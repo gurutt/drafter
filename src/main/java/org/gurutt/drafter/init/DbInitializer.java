@@ -1,12 +1,19 @@
 package org.gurutt.drafter.init;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vavr.Tuple2;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
 import io.vavr.collection.Stream;
-import org.gurutt.drafter.domain.Player;
+import lombok.SneakyThrows;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.gurutt.drafter.domain.PlayerData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -16,6 +23,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
@@ -114,12 +122,40 @@ public class DbInitializer implements ApplicationRunner {
                 break;
             }
             case DOTA: {
-                Double average = tuple2._2.map(p -> p.getDota().getAttributes().getSkill()).average().get();
-                //toUpdate.setDota(new Dota(new Attributes(average), ));
+                Attributes attributes = player.getDota().getAttributes();
+                if (attributes.getSkill() == 0.0) {
+                    attributes.setSkill(getDotaRank(player));
+                }
                 break;
             }
         }
         return toUpdate;
+    }
+
+    @SneakyThrows
+    private Integer getDotaRank(PlayerData player) {
+        String dotaStatsUrl
+                = "https://api.opendota.com/api/players/" + player.getExtId();
+
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(dotaStatsUrl);
+            try (CloseableHttpResponse response = httpClient.execute(request)) {
+
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    String result = EntityUtils.toString(entity);
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode root = mapper.readTree(result);
+                    JsonNode rank = root.path("competitive_rank");
+                    if (rank.isNull()) {
+                        return root.path("solo_competitive_rank").asInt();
+                    }
+                    return rank.asInt();
+                }
+            }
+        }
+
+        return 0;
     }
 
     private Function<File, List<PlayerData>> readData() {

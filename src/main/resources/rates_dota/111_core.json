@@ -1,102 +1,32 @@
 [
   {
     "slug": "vanya",
+    "extId": "113764302",
     "dota": {
       "attributes": {
-        "skill": 14,
         "roles": ["1","2"]
       }
     },
     "name": "Ваня"
   },
   {
-    "slug": "dimonr",
-    "dota": {
-      "attributes": {
-        "skill": 11,
-        "roles": ["4","5"]
-      }
-    },
-    "name": "Димон Рощин"
-  },
-  {
-    "slug": "vova-g",
-    "dota": {
-      "attributes": {
-        "skill": 11,
-        "roles": ["4","5"]
-      }
-    },
-    "name": "Вова"
-  },
-  {
     "slug": "metalid",
+    "extId": "204977250",
     "dota": {
       "attributes": {
-        "skill": 16,
         "roles": ["4","5"]
       }
     },
     "name": "Артур"
   },
   {
-    "slug": "malina",
-    "dota": {
-      "attributes": {
-        "skill": 15,
-        "roles": ["3"]
-      }
-    },
-    "name": "Саша"
-  },
-  {
-    "slug": "artem",
-    "dota": {
-      "attributes": {
-        "skill": 9,
-        "roles": ["3","4"]
-      }
-    },
-    "name": "Артем"
-  },
-  {
     "slug": "nikita",
+    "extId": "87133788",
     "dota": {
       "attributes": {
-        "skill": 12,
         "roles": ["1","2"]
       }
     },
     "name": "Никита"
-  },
-  {
-    "slug": "pudge",
-    "dota": {
-      "attributes": {
-        "skill": 11,
-        "roles": ["2","4"]
-      }
-    },
-    "name": "Бершов"
-  },
-  {
-    "slug": "xor",
-    "dota": {
-      "attributes": {
-        "skill": 12,
-        "roles": ["1","2"]
-      }
-    },
-    "name": "Xor"
-  },
-  {
-    "slug": "danil",
-    "dota": {
-      "attributes": {
-        "skill": 10,
-        "roles": ["1"]
-      }
-    },
-    "name": "Данил"
   }
 ]

@@ -9,6 +9,8 @@ import org.springframework.util.Assert;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.text.DecimalFormat;
+
 import static org.apache.commons.lang3.StringUtils.startsWith;
 
 @Component
@@ -41,8 +43,9 @@ public class PlayerListMessageProcessor implements MessageProcessor<String, List
 
     @Override
     public String response(List<Player> players) {
+        DecimalFormat decimalFormat = new DecimalFormat("0.#");
         return String.join("\n",
                 players.sortBy(Player::getName).map(player -> String.format("%s - %s (%s)",
-                        player.getName(), String.format("%.2f", player.getSkill()), player.getSlug())));
+                        player.getName(), decimalFormat.format(player.getSkill()), player.getSlug())));
     }
 }

@@ -5,4 +5,4 @@ spring:
       port: ${MONGO_PORT:27017}
       database: drafter
 
-telegram.bot.token: ${DRAFTIFY_TOKEN:hello}
+telegram.bot.token: ${DRAFTIFY_TOKEN:652765743:AAEnbzZBgvHYYk6JKGiVPH5AIQ1zBzBK_BQ}

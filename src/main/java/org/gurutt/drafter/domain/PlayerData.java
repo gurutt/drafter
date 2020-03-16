@@ -30,6 +30,7 @@ public class PlayerData {
     private Basketball basketball;
     private Football football;
     private Dota dota;
+    private String extId;
 
     @Data
     @AllArgsConstructor
