@@ -1,10 +1,30 @@
 [
   {
+    "slug": "vova-g",
+    "extId": "117255180",
+    "dota": {
+      "attributes": {
+        "roles": ["4"]
+      }
+    },
+    "name": "Вова"
+  },
+  {
+    "slug": "pudge",
+    "extId": "117294243",
+    "dota": {
+      "attributes": {
+        "roles": ["3"]
+      }
+    },
+    "name": "Бершов"
+  },
+  {
     "slug": "vanya",
     "extId": "113764302",
     "dota": {
       "attributes": {
-        "roles": ["1","2"]
+        "roles": ["1"]
       }
     },
     "name": "Ваня"
@@ -14,7 +34,7 @@
     "extId": "204977250",
     "dota": {
       "attributes": {
-        "roles": ["4","5"]
+        "roles": ["5"]
       }
     },
     "name": "Артур"
@@ -24,9 +44,69 @@
     "extId": "87133788",
     "dota": {
       "attributes": {
-        "roles": ["1","2"]
+        "roles": ["3","4"]
       }
     },
     "name": "Никита"
+  },
+  {
+    "slug": "dimonr",
+    "extId": "113888331",
+    "dota": {
+      "attributes": {
+        "roles": ["5"]
+      }
+    },
+    "name": "Рощин"
+  },
+  {
+    "slug": "malina",
+    "extId": "118103221",
+    "dota": {
+      "attributes": {
+        "roles": ["4"]
+      }
+    },
+    "name": "Саша"
+  },
+  {
+    "slug": "max",
+    "extId": "81633567",
+    "dota": {
+      "attributes": {
+        "roles": ["3"]
+      }
+    },
+    "name": "Максвелл"
+  },
+  {
+    "slug": "smoke",
+    "dota": {
+      "attributes": {
+        "roles": ["2"],
+        "skill": "4500"
+      }
+    },
+    "name": "Смок"
+  },
+  {
+    "slug": "danil",
+    "dota": {
+      "attributes": {
+        "roles": ["1", "2", "3"],
+        "skill": "3700"
+      }
+    },
+    "name": "Данил"
+  },
+  {
+    "slug": "kit",
+    "dota": {
+      "attributes": {
+        "roles": ["1", "3", "4"],
+        "skill": "3200"
+      }
+    },
+    "name": "Kit"
   }
 ]

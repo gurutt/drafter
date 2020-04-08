@@ -111,7 +111,7 @@ public class Team {
         return "Team{" +
                 //"skills=" + String.join(",", players.map(Player::getSkill).toString()) +
                 "players=" + String.join(",", players.map(p -> p.getSlug() + String.join("|", p.getRoles()))) +
-                //", overallSkill=" + overallSkill() +
+                ", overallSkill=" + overallSkill() +
                 //", overallPhysics=" + overallPhysics() +
                 '}';
     }

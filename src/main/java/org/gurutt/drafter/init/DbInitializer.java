@@ -23,7 +23,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,7 +57,7 @@ public class DbInitializer implements ApplicationRunner {
     }
 
     private void loadMainConfiguration() throws URISyntaxException {
-        mongo.dropCollection(PlayerData.class);
+        //mongo.dropCollection(PlayerData.class);
         if (mongo.count(new Query(), PlayerData.COLLECTION) != 0) {
             return;
         }
@@ -147,10 +146,18 @@ public class DbInitializer implements ApplicationRunner {
                     ObjectMapper mapper = new ObjectMapper();
                     JsonNode root = mapper.readTree(result);
                     JsonNode rank = root.path("competitive_rank");
-                    if (rank.isNull()) {
-                        return root.path("solo_competitive_rank").asInt();
+                    JsonNode soloRank = root.path("solo_competitive_rank");
+                    if (!rank.isNull()) {
+                        //return rank.asInt();
+                    } else if (!soloRank.isNull()) {
+                        ///return soloRank.asInt();
                     }
-                    return rank.asInt();
+                    JsonNode mmrEstimate = root.path("mmr_estimate");
+                    if (!mmrEstimate.isNull()) {
+                        if (!mmrEstimate.path("estimate").isNull()) {
+                            return mmrEstimate.path("estimate").asInt();
+                        }
+                    }
                 }
             }
         }
