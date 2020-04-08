@@ -57,7 +57,7 @@ public class DbInitializer implements ApplicationRunner {
     }
 
     private void loadMainConfiguration() throws URISyntaxException {
-        //mongo.dropCollection(PlayerData.class);
+        mongo.dropCollection(PlayerData.class);
         if (mongo.count(new Query(), PlayerData.COLLECTION) != 0) {
             return;
         }

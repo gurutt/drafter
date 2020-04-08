@@ -169,8 +169,8 @@ public class PartitionDrafter implements Drafter {
         int avg = sum / players.length;
         int target = sum / teams;
 
-        int min = target - avg / 10;
-        int max = target + avg / 10;
+        int min = target - avg / 3;
+        int max = target + avg / 3;
 
         Map<Integer, Long> freq = Arrays.stream(players).boxed()
                 .collect(groupingBy(identity(), counting()));

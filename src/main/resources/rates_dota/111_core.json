@@ -4,7 +4,8 @@
     "extId": "117255180",
     "dota": {
       "attributes": {
-        "roles": ["4"]
+        "roles": ["3","4","5"],
+        "skill": 2300
       }
     },
     "name": "Вова"
@@ -24,7 +25,8 @@
     "extId": "113764302",
     "dota": {
       "attributes": {
-        "roles": ["1"]
+        "roles": ["2", "1", "3"],
+        "skill": 2500
       }
     },
     "name": "Ваня"
@@ -34,7 +36,8 @@
     "extId": "204977250",
     "dota": {
       "attributes": {
-        "roles": ["5"]
+        "roles": ["5", "3", "2"],
+        "skill": 2100
       }
     },
     "name": "Артур"
@@ -44,7 +47,8 @@
     "extId": "87133788",
     "dota": {
       "attributes": {
-        "roles": ["3","4"]
+        "roles": ["1","3","4"],
+        "skill" : 3430
       }
     },
     "name": "Никита"
@@ -54,7 +58,8 @@
     "extId": "113888331",
     "dota": {
       "attributes": {
-        "roles": ["5"]
+        "roles": ["5", "4", "3"],
+        "skill": 999
       }
     },
     "name": "Рощин"
@@ -74,7 +79,8 @@
     "extId": "81633567",
     "dota": {
       "attributes": {
-        "roles": ["3"]
+        "roles": ["1","3","4"],
+        "skill": 2900
       }
     },
     "name": "Максвелл"
@@ -84,7 +90,7 @@
     "dota": {
       "attributes": {
         "roles": ["2"],
-        "skill": "4500"
+        "skill": 4500
       }
     },
     "name": "Смок"
@@ -94,7 +100,7 @@
     "dota": {
       "attributes": {
         "roles": ["1", "2", "3"],
-        "skill": "3700"
+        "skill": 3700
       }
     },
     "name": "Данил"
@@ -104,9 +110,29 @@
     "dota": {
       "attributes": {
         "roles": ["1", "3", "4"],
-        "skill": "3200"
+        "skill": 3200
       }
     },
     "name": "Kit"
+  },
+  {
+    "slug": "pavel",
+    "dota": {
+      "attributes": {
+        "roles": ["5", "4", "3"],
+        "skill": 1700
+      }
+    },
+    "name": "Pavel"
+  },
+  {
+    "slug": "artem",
+    "dota": {
+      "attributes": {
+        "roles": ["2", "4", "3"],
+        "skill": 3300
+      }
+    },
+    "name": "Artem"
   }
 ]
